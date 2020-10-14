@@ -45,9 +45,30 @@
 # 
 # But Abdi, what exactly is a transaction? It basically is a logical grouping of operations on a database that execute together.
 # 
+# If a change to one piece of data impacts another - you should be using transactions. They follow four requirements that are known as **ACID** guarantees. We have a friend that will step in here, feel free to ask it more detailed question if you need more help (visit him...[here](https://en.wikipedia.org/wiki/ACID) ;) :-
+# * **A**tomicity: guarantees that each transaction is treated as a single unit, wich can either succeed completely or fail.
+# * **C**onsistency: ensures a transaction can only bring the DB from one valid state to another.
+# * **I**solation: ensures that concurrent execution of transactions leaves the DB in the same state that would have been obtained if the transaction were executed sequentially.
+# * **D**urability: guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure.
 # 
+# Thanks wikipedia for the help!
 # 
+
+# A lot of the time, data engineering does feel like: 
+# ![funny data engineering image](https://miro.medium.com/max/1000/0*kAOakOPohpvdqM4M)
 # 
+# Transactional DBs, as described above, are referred to as OLTP (online transaction processing) systems. OLTP systems support:
+# - many users
+# - quick reads
+# - handle large volumes of data
+# - little downtime
+# - handle simple and small transactions
+# 
+# OLAP (Online Analytical Processing) systems are the opposite. They support:
+# - few users
+# - long response times
+# - more downtime
+# - can handle large and complex transactions
 
 # As a Machine Learning Engineer, it is important to understand when each of the varies different data formats may be appropriate. Hence, it is good to ask questions, such as the following, in order to get a better understanding of your data:
 # * how often will the data be accessed? Is it accessed by customers who want instant information, or will business users use it, who do not mind waiting a little?
