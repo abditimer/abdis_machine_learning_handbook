@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="Content in Jupyter Book" href="content.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -96,10 +98,22 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
   <a class="reference internal" href="content.html">
    Content in Jupyter Book
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Data - the different types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
   </a>
  </li>
 </ul>
@@ -247,6 +261,31 @@
 <p>In this case, we are able to group many smaller tasks/operations in a transaction. The benefit a transaction provides, is that if one trigger/event changes one piece of data, then the rest of the data is also changed. Also, this means if it fails, then it is able to roll back the entire series of operations.</p>
 <p>E.g. if you look after a platform that looks after car insurance quotes, you can make sure with a transaction that an application is not completed until after the customer is underwritten.</p>
 <p>But Abdi, what exactly is a transaction? It basically is a logical grouping of operations on a database that execute together.</p>
+<p>If a change to one piece of data impacts another - you should be using transactions. They follow four requirements that are known as <strong>ACID</strong> guarantees. We have a friend that will step in here, feel free to ask it more detailed question if you need more help (visit him…<a class="reference external" href="https://en.wikipedia.org/wiki/ACID">here</a> ;) :-</p>
+<ul class="simple">
+<li><p><strong>A</strong>tomicity: guarantees that each transaction is treated as a single unit, wich can either succeed completely or fail.</p></li>
+<li><p><strong>C</strong>onsistency: ensures a transaction can only bring the DB from one valid state to another.</p></li>
+<li><p><strong>I</strong>solation: ensures that concurrent execution of transactions leaves the DB in the same state that would have been obtained if the transaction were executed sequentially.</p></li>
+<li><p><strong>D</strong>urability: guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure.</p></li>
+</ul>
+<p>Thanks wikipedia for the help!</p>
+<p>A lot of the time, data engineering does feel like:
+<img alt="funny data engineering image" src="https://miro.medium.com/max/1000/0*kAOakOPohpvdqM4M" /></p>
+<p>Transactional DBs, as described above, are referred to as OLTP (online transaction processing) systems. OLTP systems support:</p>
+<ul class="simple">
+<li><p>many users</p></li>
+<li><p>quick reads</p></li>
+<li><p>handle large volumes of data</p></li>
+<li><p>little downtime</p></li>
+<li><p>handle simple and small transactions</p></li>
+</ul>
+<p>OLAP (Online Analytical Processing) systems are the opposite. They support:</p>
+<ul class="simple">
+<li><p>few users</p></li>
+<li><p>long response times</p></li>
+<li><p>more downtime</p></li>
+<li><p>can handle large and complex transactions</p></li>
+</ul>
 <p>As a Machine Learning Engineer, it is important to understand when each of the varies different data formats may be appropriate. Hence, it is good to ask questions, such as the following, in order to get a better understanding of your data:</p>
 <ul class="simple">
 <li><p>how often will the data be accessed? Is it accessed by customers who want instant information, or will business users use it, who do not mind waiting a little?</p></li>
@@ -284,6 +323,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="content.html" title="previous page">Content in Jupyter Book</a>
+    <a class='right-next' id="next-link" href="references.html" title="next page">References</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
