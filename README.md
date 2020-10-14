@@ -1,5 +1,7 @@
 # abdis-machine-learning-handbook
 
+THIS BOOK IS IN PREVIEW AND IS BEING DEVELOPED.
+
 The perfect handbook for any Machine Learning Engineer or Data Scientist
 
 ## Usage
