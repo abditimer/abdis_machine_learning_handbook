@@ -3,10 +3,15 @@
 - file: intro
   numbered: true
 
-- part: Overview
+- part: Overview of the Book
   chapters:
     - file: ovw/what_is_mle
 
-- part: Data Engineering
+- part: Data as the Foundation
   chapters:
     - file: data_formats
+
+- part: Basics of Machine Learning
+  chapters:
+    - mle_basics/basics_of_ml
+    - mle_basics/overview_of_ml
