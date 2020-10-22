@@ -1,7 +1,12 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 - file: intro
-- file: content
-  sections:
+  numbered: true
+
+- part: Overview
+  chapters:
+    - file: ovw/what_is_mle
+
+- part: Data Engineering
+  chapters:
     - file: data_formats
-- file: references
