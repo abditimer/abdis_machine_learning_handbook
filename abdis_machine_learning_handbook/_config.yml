@@ -7,5 +7,4 @@
 # Book settings
 title                       : abdis-machine-learning-handbook  # The title of the book. Will be placed in the left navbar.
 author                      : Abdi Timer  # The author of the book
-copyright                   : "2020"  # Copyright year to be placed in the footer
 logo                        : logo.png  # A path to the book logo
