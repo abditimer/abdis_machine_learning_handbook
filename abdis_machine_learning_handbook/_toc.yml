@@ -10,6 +10,7 @@
 - part: 2) Background topics for ML and DL 
   chapters:
     - file: 2_background/setup_background
+    - file: 2_background/tools_background
     - file: 2_background/data_formats
     - file: 2_background/intro_stats
     # software engineering notebook
