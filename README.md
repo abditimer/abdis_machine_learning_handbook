@@ -4,8 +4,6 @@ THIS BOOK IS IN PREVIEW AND IS BEING DEVELOPED.
 
 The perfect handbook for any Machine Learning Engineer or Data Scientist
 
-## Usage
-
 ### Building the book
 
 If you'd like to develop on and build the abdis-machine-learning-handbook book, you should:
@@ -16,17 +14,6 @@ If you'd like to develop on and build the abdis-machine-learning-handbook book, 
 - Run `jupyter-book build abdis-machine-learning-handbook/`
 
 A fully-rendered HTML version of the book will be built in `abdis-machine-learning-handbook/_build/html/`.
-
-### Hosting the book
-
-The html version of the book is hosted on the `gh-pages` branch of this repo. A GitHub actions workflow has been created that automatically builds and pushes the book to this branch on a push or pull request to main.
-
-If you wish to disable this automation, you may remove the GitHub actions workflow and build the book manually by:
-
-- Navigating to your local build; and running,
-- `ghp-import -n -p -f abdis-machine-learning-handbook/_build/html`
-
-This will automatically push your build to the `gh-pages` branch. More information on this hosting process can be found [here](https://jupyterbook.org/publish/gh-pages.html#manually-host-your-book-with-github-pages).
 
 ## Contributors
 

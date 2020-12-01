@@ -5,13 +5,16 @@
 
 - part: Overview of the Book
   chapters:
-    - file: ovw/what_is_mle
+    - file: 1_ovw/what_is_mle
 
-- part: Data as the Foundation
+- part: 2) Background topics for ML and DL 
   chapters:
-    - file: data_formats
+    - file: 2_background/setup_background
+    - file: 2_background/data_formats
+    - file: 2_background/intro_stats
+    # software engineering notebook
 
-- part: Basics of Machine Learning
+- part: 3) Basics of Machine Learning
   chapters:
-    - mle_basics/basics_of_ml
-    - mle_basics/overview_of_ml
+    - 3_mle_basics/basics_of_ml
+    - 3_mle_basics/overview_of_ml
