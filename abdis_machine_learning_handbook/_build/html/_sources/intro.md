@@ -14,4 +14,4 @@ I will try to make this book as beginner friendly as possible.
 
 Hi, I'm Abdi Timer. A Data Science Consultant who works in the financial sector. I have previous experience working in Insurance as a Machine Learning Engineer, and a Masters in Computer Science. I love all things technology and data, so I use this book to keep track of things I have learned and to share the knowledge!
 
-You can connect with me on [LinkedIn](https://www.linkedin.com/in/abditimer/) or feel free to send me an [email](abdikhaliq.timer@gmail.com).
+You can connect with me on [LinkedIn](https://www.linkedin.com/in/abditimer/) or feel free to send me an email `abdikhaliq.timer@gmail.com`.
