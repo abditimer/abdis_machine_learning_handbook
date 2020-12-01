@@ -1,21 +1,21 @@
 # Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
 - file: intro
   numbered: true
 
 - part: Overview of the Book
   chapters:
     - file: 1_ovw/what_is_mle
-
-- part: 2) Background topics for ML and DL 
+- part: Background topics for ML and DL 
   chapters:
     - file: 2_background/setup_background
     - file: 2_background/tools_background
     - file: 2_background/data_formats
     - file: 2_background/intro_stats
     # software engineering notebook
-
-- part: 3) Basics of Machine Learning
+- part: Basics of Machine Learning
   chapters:
-    - 3_mle_basics/basics_of_ml
-    - 3_mle_basics/overview_of_ml
+    - file: 3_mle_basics/basics_of_ml
+    - file: 3_mle_basics/overview_of_ml
+- part: Appendix & References
+  chapters:
+    - file: references
