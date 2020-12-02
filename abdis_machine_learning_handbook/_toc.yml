@@ -16,6 +16,9 @@
   chapters:
     - file: 3_mle_basics/basics_of_ml
     - file: 3_mle_basics/overview_of_ml
+- part: Basics of Deep Learning
+  chapters:
+    - file: 4_dl_basics/basics_of_dl
 - part: Appendix & References
   chapters:
     - file: references
