@@ -1,6 +1,8 @@
 # abdis-machine-learning-handbook
 
-THIS BOOK IS IN PREVIEW AND IS BEING DEVELOPED. Feel free to pull this repo and work on it as you would like.
+This book is still in `active development`.
+![image of someone working...](https://media3.giphy.com/media/L8K62iTDkzGX6/giphy.gif)
+
 
 The perfect handbook for any Machine Learning Engineer or Data Scientist
 
