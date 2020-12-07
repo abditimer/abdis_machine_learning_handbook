@@ -1,0 +1,6 @@
+README.md
+setup.py
+abdisbook_hfunctions.egg-info/PKG-INFO
+abdisbook_hfunctions.egg-info/SOURCES.txt
+abdisbook_hfunctions.egg-info/dependency_links.txt
+abdisbook_hfunctions.egg-info/top_level.txt
