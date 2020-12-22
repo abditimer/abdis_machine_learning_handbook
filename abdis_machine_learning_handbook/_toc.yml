@@ -12,14 +12,24 @@
     - file: 2_background/markdown.md
     - file: 2_background/data_formats
     - file: 2_background/intro_stats
+    - file: 2_background/intro_linear_algebra
     # software engineering notebook
 - part: Basics of Machine Learning
   chapters:
     - file: 3_mle_basics/basics_of_ml
     - file: 3_mle_basics/overview_of_ml
+    - file: 3_mle_basics/basics_of_sklearn
 - part: Basics of Deep Learning
   chapters:
     - file: 4_dl_basics/basics_of_dl
+    - file: 4_dl_basics/rnns
+    - file: 4_1_dl_basics_implementations/sentiment_analysis
+    - file: 4_1_dl_basics_implementations/diabetes_predictor
+- part: Software Engineering Basics
+  chapters:
+    - file: 5_software_engineering/python_classes_inheritence_more
+    - file: 5_software_engineering/python_lambdas_decorators
+    - file: 6_pyspark/pyspark_intro
 - part: Appendix & References
   chapters:
     - file: references
