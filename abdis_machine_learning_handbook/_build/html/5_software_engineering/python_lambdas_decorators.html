@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Lambdas &amp; Decorators &#8212; abdis-machine-learning-handbook</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. PySpark refresher" href="../6_pyspark/pyspark_intro.html" />
+    <link rel="prev" title="1. Python Classes, Inheritence etc" href="python_classes_inheritence_more.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">abdis-machine-learning-handbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to Abdis Machine Learning Handbook
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Overview of the Book
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1_ovw/what_is_mle.html">
+   1. What is Machine Learning Engineering?
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Background topics for ML and DL
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/setup_background.html">
+   1. Setup Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/tools_background.html">
+   2. Tools Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/data_formats.html">
+   4. Data - the different types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/intro_stats.html">
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/intro_linear_algebra.html">
+   6. Intro to Linear Algebra
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Machine Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/basics_of_ml.html">
+   1. Basics of Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
+   2. Overview of Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/basics_of_sklearn.html">
+   3. SKLearn API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/basics_of_dl.html">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/sentiment_analysis.html">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   3. PySpark refresher
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Appendix &amp; References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references.html">
+   1. References
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/5_software_engineering/python_lambdas_decorators.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/5_software_engineering/python_lambdas_decorators.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lets-begin-with-lambdas">
+   2.1. Lets begin with Lambdas
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-lambda-function">
+   2.2. What is a lambda function?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-use-lambda-functions">
+   2.3. why use Lambda functions?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-not-use-lambda-functions">
+   2.4. why not use lambda functions?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lambdas-vs-functions">
+   2.5. Lambdas vs Functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples">
+   2.6. Examples
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examples-of-using-lambdas-with-sorting">
+     2.6.1. Examples of using Lambdas with Sorting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examples-of-closures">
+     2.6.2. Examples of Closures
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#okay-back-to-decorators">
+   2.7. Okay, back to Decorators
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="lambdas-decorators">
+<h1><span class="section-number">2. </span>Lambdas &amp; Decorators<a class="headerlink" href="#lambdas-decorators" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lets-begin-with-lambdas">
+<h2><span class="section-number">2.1. </span>Lets begin with Lambdas<a class="headerlink" href="#lets-begin-with-lambdas" title="Permalink to this headline">¶</a></h2>
+<p>No, not lambs. But, they’re both pretty adorable</p>
+<p><img alt="lamb kicking its feet" src="https://media0.giphy.com/media/9uIwrW53rQwNmHuGGq/giphy.gif" /></p>
+<p>In this notebook, we will aim to introduce the topic of lambda functions, and how they can be used.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="what-is-a-lambda-function">
+<h2><span class="section-number">2.2. </span>What is a lambda function?<a class="headerlink" href="#what-is-a-lambda-function" title="Permalink to this headline">¶</a></h2>
+<p>A lambda function (aka anonymous functions, function literal, lambda abstractions) are function definitions that are not bound to an identifier. You can read more about what an anonymous function is <a class="reference external" href="https://en.wikipedia.org/wiki/Anonymous_function">here</a>.</p>
+</div>
+<div class="section" id="why-use-lambda-functions">
+<h2><span class="section-number">2.3. </span>why use Lambda functions?<a class="headerlink" href="#why-use-lambda-functions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>when you want to have a very quick function that takes in abstract parameters</p></li>
+<li><p>to create non-reuseble functions to stop there being tons of one-time use named functions</p></li>
+<li><p>for short-term use and doesn’t need to be used</p></li>
+</ul>
+</div>
+<div class="section" id="why-not-use-lambda-functions">
+<h2><span class="section-number">2.4. </span>why not use lambda functions?<a class="headerlink" href="#why-not-use-lambda-functions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>they’re not the only way to solve a problem e.g. you can create an actual function - named function</p></li>
+<li><p>can make debugging hard, as python will only return that a lambda function has gone wrong….but which one, you’ll never know!</p></li>
+</ul>
+</div>
+<div class="section" id="lambdas-vs-functions">
+<h2><span class="section-number">2.5. </span>Lambdas vs Functions<a class="headerlink" href="#lambdas-vs-functions" title="Permalink to this headline">¶</a></h2>
+<p><img alt="when you find lambdas, you never go back to functions..." src="https://pics.me.me/me-anormal-function-lambda-after-learning-lambdas-46113619.png" /></p>
+<p>Okay, so lambdas can be great. But what makes them different to normal functions?</p>
+<ul class="simple">
+<li><p>Lambdas only contain expressions and can’t include statements in its body (e.g. set x to 5)</p></li>
+<li><p>you can only write lambdas as a single line vs multiline functions</p></li>
+<li><p>no statements like return, pass etc</p></li>
+<li></li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h2><span class="section-number">2.6. </span>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>We will now write out examples in python. Why not copy these out and run them yourself?</p>
+<div class="section" id="examples-of-using-lambdas-with-sorting">
+<h3><span class="section-number">2.6.1. </span>Examples of using Lambdas with Sorting<a class="headerlink" href="#examples-of-using-lambdas-with-sorting" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unsort_count_of_a</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aaaaaaaa&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;aaaa&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">unsort_count_of_a</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+<span class="n">unsort_count_of_a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;a&#39;, &#39;aa&#39;, &#39;aaaa&#39;, &#39;aaaaaaaa&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="examples-of-closures">
+<h3><span class="section-number">2.6.2. </span>Examples of Closures<a class="headerlink" href="#examples-of-closures" title="Permalink to this headline">¶</a></h3>
+<p>Closueres are functions evaluated in environments that have bound variables. Okay, but what does that mean? Simply put,</p>
+<p>Now, lets look at an example using <code class="docutils literal notranslate"><span class="pre">map()</span></code>.</p>
+<p>Map takes two arguments: <code class="docutils literal notranslate"><span class="pre">function</span></code> to run and <code class="docutils literal notranslate"><span class="pre">iterables</span></code> to pass to the function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">some_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">t</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span> <span class="p">:</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">some_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;map object at 0x7fabfc9ef278&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="okay-back-to-decorators">
+<h2><span class="section-number">2.7. </span>Okay, back to Decorators<a class="headerlink" href="#okay-back-to-decorators" title="Permalink to this headline">¶</a></h2>
+<p>What is a decorator?</p>
+<p>A decorator simply wraps a function, and in turn changes its behaviour. Therefore, you can add additional behaviour to functions/classes. You will also see that you can use &#64; to call a decorator, instead of writing tons of code.</p>
+<p>Here is an example</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wraps</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;wrapping the function...&#39;</span><span class="p">)</span>
+        <span class="n">function</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;wrapping complete.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wraps</span>
+
+<span class="k">def</span> <span class="nf">print_hi</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hi abdi&#39;</span><span class="p">)</span>
+
+<span class="n">decorated</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">print_hi</span><span class="p">)</span>
+<span class="n">decorated</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>wrapping the function...
+Hi abdi
+wrapping complete.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./5_software_engineering"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="python_classes_inheritence_more.html" title="previous page"><span class="section-number">1. </span>Python Classes, Inheritence etc</a>
+    <a class='right-next' id="next-link" href="../6_pyspark/pyspark_intro.html" title="next page"><span class="section-number">3. </span>PySpark refresher</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Abdi Timer<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

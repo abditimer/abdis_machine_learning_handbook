@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -92,7 +94,7 @@
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to your Jupyter Book
+   Welcome to Abdis Machine Learning Handbook
   </a>
  </li>
 </ul>
@@ -125,8 +127,23 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="data_formats.html">
-   3. Data - the different types
+   4. Data - the different types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_stats.html">
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_linear_algebra.html">
+   6. Intro to Linear Algebra
   </a>
  </li>
 </ul>
@@ -144,6 +161,60 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
    2. Overview of Machine Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/basics_of_dl.html">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/sentiment_analysis.html">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html#examples">
+   3. Examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   4. PySpark refresher
   </a>
  </li>
 </ul>
@@ -235,6 +306,28 @@
    1.1. Intro
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#environments">
+   1.2. Environments
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conda">
+     1.2.1. Conda
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#miniconda">
+     1.2.2. MiniConda
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pip">
+     1.2.3. Pip
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
         </nav>
@@ -258,6 +351,51 @@
 <p>Setting up environments for python can be confusing:</p>
 <img src='https://imgs.xkcd.com/comics/python_environment_2x.png' alt='meme of python dependencies all over the place' width='500'>
 <p>In this notebook, we will aim to help summarise the different approaches, and help you get on your feet quickly!</p>
+</div>
+<div class="section" id="environments">
+<h2><span class="section-number">1.2. </span>Environments<a class="headerlink" href="#environments" title="Permalink to this headline">¶</a></h2>
+<p>Environments allow you to isolate away from your machine, hence, giving you a way to build isolated project with different package dependencies.</p>
+<div class="section" id="conda">
+<h3><span class="section-number">1.2.1. </span>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Part of the Anaconda Distribution, you can use conda to create virtual environments and install packages</p></li>
+<li><p>built for data science and other data tasks</p></li>
+<li><p>it is a package and environment manager</p></li>
+<li><p>You can create a new environment per project</p></li>
+<li><p>create environment using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">&lt;name&gt;</span></code></p></li>
+<li><p>activate and enter it using: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">activate</span> <span class="pre">&lt;name&gt;</span></code> (for windows, just use activate)</p></li>
+<li><p>use <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code> to view all packages in your virtual environment</p></li>
+<li><p>use <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">&lt;python</span> <span class="pre">packages&gt;</span></code> to install new py packages</p></li>
+<li><p>to update conda, run: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">upgrade</span> <span class="pre">conda</span></code> and <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">upgrade</span> <span class="pre">--all</span></code></p></li>
+<li><p>to update a conda package, run: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span> <span class="pre">&lt;package</span> <span class="pre">name&gt;</span></code> or run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span> <span class="pre">--all</span></code></p></li>
+<li><p>Environments:</p>
+<ul>
+<li><p>create new environment with : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">&lt;name&gt;</span></code></p></li>
+<li><p>activate conda environment with : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">&lt;env</span> <span class="pre">name&gt;</span></code></p></li>
+<li><p>deactivate it with : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code></p></li>
+<li><p>export environment using : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">&gt;</span> <span class="pre">environment.yaml</span></code></p></li>
+<li><p>list all environments : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">list</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="miniconda">
+<h3><span class="section-number">1.2.2. </span>MiniConda<a class="headerlink" href="#miniconda" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Like conda, but smaller</p></li>
+<li><p>smaller distribution that only contains python and conda</p></li>
+<li><p>no preinstalled packages</p></li>
+</ul>
+</div>
+<div class="section" id="pip">
+<h3><span class="section-number">1.2.3. </span>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>default python package manager</p></li>
+<li><p>can download all packages from PyPi distribution</p></li>
+<li><p>to check if you have pip, use the typical –version command with pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">--version</span></code></p></li>
+<li><p>export all current packages from an environment using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span> <span class="pre">&gt;</span> <span class="pre">requirements.txt</span></code></p></li>
+</ul>
+</div>
 </div>
 </div>
 

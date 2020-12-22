@@ -1,0 +1,3004 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. Sentiment Analysis end-to-end example &#8212; abdis-machine-learning-handbook</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Building a terrible diabetes predictor from scratch" href="diabetes_predictor.html" />
+    <link rel="prev" title="2. RNN" href="../4_dl_basics/rnns.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">abdis-machine-learning-handbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to Abdis Machine Learning Handbook
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Overview of the Book
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1_ovw/what_is_mle.html">
+   1. What is Machine Learning Engineering?
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Background topics for ML and DL
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/setup_background.html">
+   1. Setup Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/tools_background.html">
+   2. Tools Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/data_formats.html">
+   4. Data - the different types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/intro_stats.html">
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/intro_linear_algebra.html">
+   6. Intro to Linear Algebra
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Machine Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/basics_of_ml.html">
+   1. Basics of Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
+   2. Overview of Machine Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/basics_of_dl.html">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html#examples">
+   3. Examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   4. PySpark refresher
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Appendix &amp; References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references.html">
+   1. References
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/4_1_dl_basics_implementations/sentiment_analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/4_1_dl_basics_implementations/sentiment_analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#now-lets-build-up-a-hypothesis">
+   3.1. Now, lets build up a hypothesis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transforming-words-into-numbers">
+   3.2. Transforming words into numbers
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="sentiment-analysis-end-to-end-example">
+<h1><span class="section-number">3. </span>Sentiment Analysis end-to-end example<a class="headerlink" href="#sentiment-analysis-end-to-end-example" title="Permalink to this headline">¶</a></h1>
+<p>This example is brought to you by Udacity - consider doing the great Udacity Deep Learning course. Find out more <a class="reference external" href="https://www.udacity.com/course/deep-learning-nanodegree--nd101">here</a>.</p>
+<blockquote>
+<div><p>These are my own personal notes</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>In this notebook, the aium is to build <code class="docutils literal notranslate"><span class="pre">TODO</span></code></p>
+<p>We begin by looking at the dataset we have:</p>
+<ul class="simple">
+<li><p>reviews.txt: reviews of a movie</p></li>
+<li><p>labels.txt: positive/negative label associated with the movie</p></li>
+</ul>
+<p>We will use the python <code class="docutils literal notranslate"><span class="pre">open()</span></code> function to open the file, with the parameter <code class="docutils literal notranslate"><span class="pre">'r'</span></code> to read the file. Using <code class="docutils literal notranslate"><span class="pre">readlines</span></code> will return a list made up of each line in the file, returned as a list item. Hence, each character will be an item in the list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">review_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sentiment_data/reviews.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">reviews</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">review_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()))</span>
+<span class="n">review_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">label_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sentiment_data/labels.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">label_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()))</span>
+<span class="n">label_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now lets find some information out about our data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of our data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No of labels: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Now, lets see one row of our data. First feature in our data:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Prediction:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Size of our data: 25000
+No of labels: 25000
+
+Now, lets see one row of our data. First feature in our data:
+bromwell high is a cartoon comedy . it ran at the same time as some other programs about school life  such as  teachers  . my   years in the teaching profession lead me to believe that bromwell high  s satire is much closer to reality than is  teachers  . the scramble to survive financially  the insightful students who can see right through their pathetic teachers  pomp  the pettiness of the whole situation  all remind me of the schools i knew and their students . when i saw the episode in which a student repeatedly tried to burn down the school  i immediately recalled . . . . . . . . . at . . . . . . . . . . high . a classic line inspector i  m here to sack one of your teachers . student welcome to bromwell high . i expect that many adults of my age think that bromwell high is far fetched . what a pity that it isn  t   
+
+Prediction:
+POSITIVE
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="now-lets-build-up-a-hypothesis">
+<h2><span class="section-number">3.1. </span>Now, lets build up a hypothesis<a class="headerlink" href="#now-lets-build-up-a-hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>We will begin by looking at our data, and trying to see what conclusions we can draw. This is ofter called the <code class="docutils literal notranslate"><span class="pre">exploratory</span></code> phase. We will begin by looking at some random predictions…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_review_with_label</span><span class="p">(</span><span class="n">ith_row</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">ith_row</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">:</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">reviews</span><span class="p">[</span><span class="n">ith_row</span><span class="p">][:</span><span class="mi">80</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using the function above, we can beautifully print our data; feature along with its prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;labels.txt </span><span class="se">\t</span><span class="s2"> : </span><span class="se">\t</span><span class="s2"> reviews.txt</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">print_review_with_label</span><span class="p">(</span><span class="mi">2137</span><span class="p">)</span>
+<span class="n">print_review_with_label</span><span class="p">(</span><span class="mi">12816</span><span class="p">)</span>
+<span class="n">print_review_with_label</span><span class="p">(</span><span class="mi">6267</span><span class="p">)</span>
+<span class="n">print_review_with_label</span><span class="p">(</span><span class="mi">21934</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>labels.txt 	 : 	 reviews.txt
+
+NEGATIVE	:	this movie is terrible but it has some good effects .  ...
+POSITIVE	:	adrian pasdar is excellent is this film . he makes a fascinating woman .  ...
+NEGATIVE	:	comment this movie is impossible . is terrible  very improbable  bad interpretat...
+POSITIVE	:	excellent episode movie ala pulp fiction .  days   suicides . it doesnt get more...
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will be using the <code class="docutils literal notranslate"><span class="pre">Counter</span></code> python class throughout this section, as it provides a nice way to count the occurances of words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">positive_words_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="n">negative_words_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="n">total_words_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="n">example_counter_with_stuff</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">counter_pretty_print</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;positive counter: &#39;</span><span class="p">,</span> <span class="n">positive_words_counter</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;negative counter: &#39;</span><span class="p">,</span> <span class="n">negative_words_counter</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;total words counter: &#39;</span><span class="p">,</span> <span class="n">total_words_counter</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;At this stage, our counters are empty...&#39;</span><span class="p">)</span>
+<span class="n">counter_pretty_print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Here is a test counter: &#39;</span><span class="p">,</span> <span class="n">example_counter_with_stuff</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At this stage, our counters are empty...
+positive counter:  Counter()
+negative counter:  Counter()
+total words counter:  Counter()
+Here is a test counter:  Counter({4: 3, 1: 1, 2: 1, 3: 1})
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, lets fill out our three counters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="c1"># for each row in our dataset</span>
+<span class="k">for</span> <span class="n">sentence_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">reviews</span><span class="p">)):</span>
+    <span class="c1"># for each word in our sentence</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">reviews</span><span class="p">[</span><span class="n">sentence_no</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+        <span class="c1"># if it is positive - add a positive counter</span>
+        <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">sentence_no</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;POSITIVE&#39;</span><span class="p">:</span>
+            <span class="n">positive_words_counter</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+        <span class="c1"># if it is negative - add to negative counter</span>
+        <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">sentence_no</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NEGATIVE&#39;</span><span class="p">:</span>
+            <span class="n">negative_words_counter</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+        <span class="c1"># regardless, add to total word counter</span>
+        <span class="n">total_words_counter</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lets take a look at the most common words.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Most common positive words:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">positive_words_counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Most common positive words:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;&#39;, 550468),
+ (&#39;the&#39;, 173324),
+ (&#39;.&#39;, 159654),
+ (&#39;and&#39;, 89722),
+ (&#39;a&#39;, 83688),
+ (&#39;of&#39;, 76855),
+ (&#39;to&#39;, 66746),
+ (&#39;is&#39;, 57245),
+ (&#39;in&#39;, 50215),
+ (&#39;br&#39;, 49235),
+ (&#39;it&#39;, 48025),
+ (&#39;i&#39;, 40743),
+ (&#39;that&#39;, 35630),
+ (&#39;this&#39;, 35080),
+ (&#39;s&#39;, 33815),
+ (&#39;as&#39;, 26308),
+ (&#39;with&#39;, 23247),
+ (&#39;for&#39;, 22416),
+ (&#39;was&#39;, 21917),
+ (&#39;film&#39;, 20937),
+ (&#39;but&#39;, 20822),
+ (&#39;movie&#39;, 19074),
+ (&#39;his&#39;, 17227),
+ (&#39;on&#39;, 17008),
+ (&#39;you&#39;, 16681),
+ (&#39;he&#39;, 16282),
+ (&#39;are&#39;, 14807),
+ (&#39;not&#39;, 14272),
+ (&#39;t&#39;, 13720),
+ (&#39;one&#39;, 13655),
+ (&#39;have&#39;, 12587),
+ (&#39;be&#39;, 12416),
+ (&#39;by&#39;, 11997),
+ (&#39;all&#39;, 11942),
+ (&#39;who&#39;, 11464),
+ (&#39;an&#39;, 11294),
+ (&#39;at&#39;, 11234),
+ (&#39;from&#39;, 10767),
+ (&#39;her&#39;, 10474),
+ (&#39;they&#39;, 9895),
+ (&#39;has&#39;, 9186),
+ (&#39;so&#39;, 9154),
+ (&#39;like&#39;, 9038),
+ (&#39;about&#39;, 8313),
+ (&#39;very&#39;, 8305),
+ (&#39;out&#39;, 8134),
+ (&#39;there&#39;, 8057),
+ (&#39;she&#39;, 7779),
+ (&#39;what&#39;, 7737),
+ (&#39;or&#39;, 7732),
+ (&#39;good&#39;, 7720),
+ (&#39;more&#39;, 7521),
+ (&#39;when&#39;, 7456),
+ (&#39;some&#39;, 7441),
+ (&#39;if&#39;, 7285),
+ (&#39;just&#39;, 7152),
+ (&#39;can&#39;, 7001),
+ (&#39;story&#39;, 6780),
+ (&#39;time&#39;, 6515),
+ (&#39;my&#39;, 6488),
+ (&#39;great&#39;, 6419),
+ (&#39;well&#39;, 6405),
+ (&#39;up&#39;, 6321),
+ (&#39;which&#39;, 6267),
+ (&#39;their&#39;, 6107),
+ (&#39;see&#39;, 6026),
+ (&#39;also&#39;, 5550),
+ (&#39;we&#39;, 5531),
+ (&#39;really&#39;, 5476),
+ (&#39;would&#39;, 5400),
+ (&#39;will&#39;, 5218),
+ (&#39;me&#39;, 5167),
+ (&#39;had&#39;, 5148),
+ (&#39;only&#39;, 5137),
+ (&#39;him&#39;, 5018),
+ (&#39;even&#39;, 4964),
+ (&#39;most&#39;, 4864),
+ (&#39;other&#39;, 4858),
+ (&#39;were&#39;, 4782),
+ (&#39;first&#39;, 4755),
+ (&#39;than&#39;, 4736),
+ (&#39;much&#39;, 4685),
+ (&#39;its&#39;, 4622),
+ (&#39;no&#39;, 4574),
+ (&#39;into&#39;, 4544),
+ (&#39;people&#39;, 4479),
+ (&#39;best&#39;, 4319),
+ (&#39;love&#39;, 4301),
+ (&#39;get&#39;, 4272),
+ (&#39;how&#39;, 4213),
+ (&#39;life&#39;, 4199),
+ (&#39;been&#39;, 4189),
+ (&#39;because&#39;, 4079),
+ (&#39;way&#39;, 4036),
+ (&#39;do&#39;, 3941),
+ (&#39;made&#39;, 3823),
+ (&#39;films&#39;, 3813),
+ (&#39;them&#39;, 3805),
+ (&#39;after&#39;, 3800),
+ (&#39;many&#39;, 3766),
+ (&#39;two&#39;, 3733),
+ (&#39;too&#39;, 3659),
+ (&#39;think&#39;, 3655),
+ (&#39;movies&#39;, 3586),
+ (&#39;characters&#39;, 3560),
+ (&#39;character&#39;, 3514),
+ (&#39;don&#39;, 3468),
+ (&#39;man&#39;, 3460),
+ (&#39;show&#39;, 3432),
+ (&#39;watch&#39;, 3424),
+ (&#39;seen&#39;, 3414),
+ (&#39;then&#39;, 3358),
+ (&#39;little&#39;, 3341),
+ (&#39;still&#39;, 3340),
+ (&#39;make&#39;, 3303),
+ (&#39;could&#39;, 3237),
+ (&#39;never&#39;, 3226),
+ (&#39;being&#39;, 3217),
+ (&#39;where&#39;, 3173),
+ (&#39;does&#39;, 3069),
+ (&#39;over&#39;, 3017),
+ (&#39;any&#39;, 3002),
+ (&#39;while&#39;, 2899),
+ (&#39;know&#39;, 2833),
+ (&#39;did&#39;, 2790),
+ (&#39;years&#39;, 2758),
+ (&#39;here&#39;, 2740),
+ (&#39;ever&#39;, 2734),
+ (&#39;end&#39;, 2696),
+ (&#39;these&#39;, 2694),
+ (&#39;such&#39;, 2590),
+ (&#39;real&#39;, 2568),
+ (&#39;scene&#39;, 2567),
+ (&#39;back&#39;, 2547),
+ (&#39;those&#39;, 2485),
+ (&#39;though&#39;, 2475),
+ (&#39;off&#39;, 2463),
+ (&#39;new&#39;, 2458),
+ (&#39;your&#39;, 2453),
+ (&#39;go&#39;, 2440),
+ (&#39;acting&#39;, 2437),
+ (&#39;plot&#39;, 2432),
+ (&#39;world&#39;, 2429),
+ (&#39;scenes&#39;, 2427),
+ (&#39;say&#39;, 2414),
+ (&#39;through&#39;, 2409),
+ (&#39;makes&#39;, 2390),
+ (&#39;better&#39;, 2381),
+ (&#39;now&#39;, 2368),
+ (&#39;work&#39;, 2346),
+ (&#39;young&#39;, 2343),
+ (&#39;old&#39;, 2311),
+ (&#39;ve&#39;, 2307),
+ (&#39;find&#39;, 2272),
+ (&#39;both&#39;, 2248),
+ (&#39;before&#39;, 2177),
+ (&#39;us&#39;, 2162),
+ (&#39;again&#39;, 2158),
+ (&#39;series&#39;, 2153),
+ (&#39;quite&#39;, 2143),
+ (&#39;something&#39;, 2135),
+ (&#39;cast&#39;, 2133),
+ (&#39;should&#39;, 2121),
+ (&#39;part&#39;, 2098),
+ (&#39;always&#39;, 2088),
+ (&#39;lot&#39;, 2087),
+ (&#39;another&#39;, 2075),
+ (&#39;actors&#39;, 2047),
+ (&#39;director&#39;, 2040),
+ (&#39;family&#39;, 2032),
+ (&#39;between&#39;, 2016),
+ (&#39;own&#39;, 2016),
+ (&#39;m&#39;, 1998),
+ (&#39;may&#39;, 1997),
+ (&#39;same&#39;, 1972),
+ (&#39;role&#39;, 1967),
+ (&#39;watching&#39;, 1966),
+ (&#39;every&#39;, 1954),
+ (&#39;funny&#39;, 1953),
+ (&#39;doesn&#39;, 1935),
+ (&#39;performance&#39;, 1928),
+ (&#39;few&#39;, 1918),
+ (&#39;bad&#39;, 1907),
+ (&#39;look&#39;, 1900),
+ (&#39;re&#39;, 1884),
+ (&#39;why&#39;, 1855),
+ (&#39;things&#39;, 1849),
+ (&#39;times&#39;, 1832),
+ (&#39;big&#39;, 1815),
+ (&#39;however&#39;, 1795),
+ (&#39;actually&#39;, 1790),
+ (&#39;action&#39;, 1789),
+ (&#39;going&#39;, 1783),
+ (&#39;bit&#39;, 1757),
+ (&#39;comedy&#39;, 1742),
+ (&#39;down&#39;, 1740),
+ (&#39;music&#39;, 1738),
+ (&#39;must&#39;, 1728),
+ (&#39;take&#39;, 1709),
+ (&#39;saw&#39;, 1692),
+ (&#39;long&#39;, 1690),
+ (&#39;right&#39;, 1688),
+ (&#39;fun&#39;, 1686),
+ (&#39;fact&#39;, 1684),
+ (&#39;excellent&#39;, 1683),
+ (&#39;around&#39;, 1674),
+ (&#39;didn&#39;, 1672),
+ (&#39;without&#39;, 1671),
+ (&#39;thing&#39;, 1662),
+ (&#39;thought&#39;, 1639),
+ (&#39;got&#39;, 1635),
+ (&#39;each&#39;, 1630),
+ (&#39;day&#39;, 1614),
+ (&#39;feel&#39;, 1597),
+ (&#39;seems&#39;, 1596),
+ (&#39;come&#39;, 1594),
+ (&#39;done&#39;, 1586),
+ (&#39;beautiful&#39;, 1580),
+ (&#39;especially&#39;, 1572),
+ (&#39;played&#39;, 1571),
+ (&#39;almost&#39;, 1566),
+ (&#39;want&#39;, 1562),
+ (&#39;yet&#39;, 1556),
+ (&#39;give&#39;, 1553),
+ (&#39;pretty&#39;, 1549),
+ (&#39;last&#39;, 1543),
+ (&#39;since&#39;, 1519),
+ (&#39;different&#39;, 1504),
+ (&#39;although&#39;, 1501),
+ (&#39;gets&#39;, 1490),
+ (&#39;true&#39;, 1487),
+ (&#39;interesting&#39;, 1481),
+ (&#39;job&#39;, 1470),
+ (&#39;enough&#39;, 1455),
+ (&#39;our&#39;, 1454),
+ (&#39;shows&#39;, 1447),
+ (&#39;horror&#39;, 1441),
+ (&#39;woman&#39;, 1439),
+ (&#39;tv&#39;, 1400),
+ (&#39;probably&#39;, 1398),
+ (&#39;father&#39;, 1395),
+ (&#39;original&#39;, 1393),
+ (&#39;girl&#39;, 1390),
+ (&#39;point&#39;, 1379),
+ (&#39;plays&#39;, 1378),
+ (&#39;wonderful&#39;, 1372),
+ (&#39;far&#39;, 1358),
+ (&#39;course&#39;, 1358),
+ (&#39;john&#39;, 1350),
+ (&#39;rather&#39;, 1340),
+ (&#39;isn&#39;, 1328),
+ (&#39;ll&#39;, 1326),
+ (&#39;later&#39;, 1324),
+ (&#39;dvd&#39;, 1324),
+ (&#39;whole&#39;, 1310),
+ (&#39;war&#39;, 1310),
+ (&#39;d&#39;, 1307),
+ (&#39;found&#39;, 1306),
+ (&#39;away&#39;, 1306),
+ (&#39;screen&#39;, 1305),
+ (&#39;nothing&#39;, 1300),
+ (&#39;year&#39;, 1297),
+ (&#39;once&#39;, 1296),
+ (&#39;hard&#39;, 1294),
+ (&#39;together&#39;, 1280),
+ (&#39;set&#39;, 1277),
+ (&#39;am&#39;, 1277),
+ (&#39;having&#39;, 1266),
+ (&#39;making&#39;, 1265),
+ (&#39;place&#39;, 1263),
+ (&#39;might&#39;, 1260),
+ (&#39;comes&#39;, 1260),
+ (&#39;sure&#39;, 1253),
+ (&#39;american&#39;, 1248),
+ (&#39;play&#39;, 1245),
+ (&#39;kind&#39;, 1244),
+ (&#39;perfect&#39;, 1242),
+ (&#39;takes&#39;, 1242),
+ (&#39;performances&#39;, 1237),
+ (&#39;himself&#39;, 1230),
+ (&#39;worth&#39;, 1221),
+ (&#39;everyone&#39;, 1221),
+ (&#39;anyone&#39;, 1214),
+ (&#39;actor&#39;, 1203),
+ (&#39;three&#39;, 1201),
+ (&#39;wife&#39;, 1196),
+ (&#39;classic&#39;, 1192),
+ (&#39;goes&#39;, 1186),
+ (&#39;ending&#39;, 1178),
+ (&#39;version&#39;, 1168),
+ (&#39;star&#39;, 1149),
+ (&#39;enjoy&#39;, 1146),
+ (&#39;book&#39;, 1142),
+ (&#39;nice&#39;, 1132),
+ (&#39;everything&#39;, 1128),
+ (&#39;during&#39;, 1124),
+ (&#39;put&#39;, 1118),
+ (&#39;seeing&#39;, 1111),
+ (&#39;least&#39;, 1102),
+ (&#39;house&#39;, 1100),
+ (&#39;high&#39;, 1095),
+ (&#39;watched&#39;, 1094),
+ (&#39;loved&#39;, 1087),
+ (&#39;men&#39;, 1087),
+ (&#39;night&#39;, 1082),
+ (&#39;anything&#39;, 1075),
+ (&#39;believe&#39;, 1071),
+ (&#39;guy&#39;, 1071),
+ (&#39;top&#39;, 1063),
+ (&#39;amazing&#39;, 1058),
+ (&#39;hollywood&#39;, 1056),
+ (&#39;looking&#39;, 1053),
+ (&#39;main&#39;, 1044),
+ (&#39;definitely&#39;, 1043),
+ (&#39;gives&#39;, 1031),
+ (&#39;home&#39;, 1029),
+ (&#39;seem&#39;, 1028),
+ (&#39;episode&#39;, 1023),
+ (&#39;audience&#39;, 1020),
+ (&#39;sense&#39;, 1020),
+ (&#39;truly&#39;, 1017),
+ (&#39;special&#39;, 1011),
+ (&#39;second&#39;, 1009),
+ (&#39;short&#39;, 1009),
+ (&#39;fan&#39;, 1009),
+ (&#39;mind&#39;, 1005),
+ (&#39;human&#39;, 1001),
+ (&#39;recommend&#39;, 999),
+ (&#39;full&#39;, 996),
+ (&#39;black&#39;, 995),
+ (&#39;help&#39;, 991),
+ (&#39;along&#39;, 989),
+ (&#39;trying&#39;, 987),
+ (&#39;small&#39;, 986),
+ (&#39;death&#39;, 985),
+ (&#39;friends&#39;, 981),
+ (&#39;remember&#39;, 974),
+ (&#39;often&#39;, 970),
+ (&#39;said&#39;, 966),
+ (&#39;favorite&#39;, 962),
+ (&#39;heart&#39;, 959),
+ (&#39;early&#39;, 957),
+ (&#39;left&#39;, 956),
+ (&#39;until&#39;, 955),
+ (&#39;script&#39;, 954),
+ (&#39;let&#39;, 954),
+ (&#39;maybe&#39;, 937),
+ (&#39;today&#39;, 936),
+ (&#39;live&#39;, 934),
+ (&#39;less&#39;, 934),
+ (&#39;moments&#39;, 933),
+ (&#39;others&#39;, 929),
+ (&#39;brilliant&#39;, 926),
+ (&#39;shot&#39;, 925),
+ (&#39;liked&#39;, 923),
+ (&#39;become&#39;, 916),
+ (&#39;won&#39;, 915),
+ (&#39;used&#39;, 910),
+ (&#39;style&#39;, 907),
+ (&#39;mother&#39;, 895),
+ (&#39;lives&#39;, 894),
+ (&#39;came&#39;, 893),
+ (&#39;stars&#39;, 890),
+ (&#39;cinema&#39;, 889),
+ (&#39;looks&#39;, 885),
+ (&#39;perhaps&#39;, 884),
+ (&#39;read&#39;, 882),
+ (&#39;enjoyed&#39;, 879),
+ (&#39;boy&#39;, 875),
+ (&#39;drama&#39;, 873),
+ (&#39;highly&#39;, 871),
+ (&#39;given&#39;, 870),
+ (&#39;playing&#39;, 867),
+ (&#39;use&#39;, 864),
+ (&#39;next&#39;, 859),
+ (&#39;women&#39;, 858),
+ (&#39;fine&#39;, 857),
+ (&#39;effects&#39;, 856),
+ (&#39;kids&#39;, 854),
+ (&#39;entertaining&#39;, 853),
+ (&#39;need&#39;, 852),
+ (&#39;line&#39;, 850),
+ (&#39;works&#39;, 848),
+ (&#39;someone&#39;, 847),
+ (&#39;mr&#39;, 836),
+ (&#39;simply&#39;, 835),
+ (&#39;picture&#39;, 833),
+ (&#39;children&#39;, 833),
+ (&#39;face&#39;, 831),
+ (&#39;keep&#39;, 831),
+ (&#39;friend&#39;, 831),
+ (&#39;dark&#39;, 830),
+ (&#39;overall&#39;, 828),
+ (&#39;certainly&#39;, 828),
+ (&#39;minutes&#39;, 827),
+ (&#39;wasn&#39;, 824),
+ (&#39;history&#39;, 822),
+ (&#39;finally&#39;, 820),
+ (&#39;couple&#39;, 816),
+ (&#39;against&#39;, 815),
+ (&#39;son&#39;, 809),
+ (&#39;understand&#39;, 808),
+ (&#39;lost&#39;, 807),
+ (&#39;michael&#39;, 805),
+ (&#39;else&#39;, 801),
+ (&#39;throughout&#39;, 798),
+ (&#39;fans&#39;, 797),
+ (&#39;city&#39;, 792),
+ (&#39;reason&#39;, 789),
+ (&#39;written&#39;, 787),
+ (&#39;production&#39;, 787),
+ (&#39;several&#39;, 784),
+ (&#39;school&#39;, 783),
+ (&#39;based&#39;, 781),
+ (&#39;rest&#39;, 781),
+ (&#39;try&#39;, 780),
+ (&#39;dead&#39;, 776),
+ (&#39;hope&#39;, 775),
+ (&#39;strong&#39;, 768),
+ (&#39;white&#39;, 765),
+ (&#39;tell&#39;, 759),
+ (&#39;itself&#39;, 758),
+ (&#39;half&#39;, 753),
+ (&#39;person&#39;, 749),
+ (&#39;sometimes&#39;, 746),
+ (&#39;past&#39;, 744),
+ (&#39;start&#39;, 744),
+ (&#39;genre&#39;, 743),
+ (&#39;beginning&#39;, 739),
+ (&#39;final&#39;, 739),
+ (&#39;town&#39;, 738),
+ (&#39;art&#39;, 734),
+ (&#39;humor&#39;, 732),
+ (&#39;game&#39;, 732),
+ (&#39;yes&#39;, 731),
+ (&#39;idea&#39;, 731),
+ (&#39;late&#39;, 730),
+ (&#39;becomes&#39;, 729),
+ (&#39;despite&#39;, 729),
+ (&#39;able&#39;, 726),
+ (&#39;case&#39;, 726),
+ (&#39;money&#39;, 723),
+ (&#39;child&#39;, 721),
+ (&#39;completely&#39;, 721),
+ (&#39;side&#39;, 719),
+ (&#39;camera&#39;, 716),
+ (&#39;getting&#39;, 714),
+ (&#39;instead&#39;, 712),
+ (&#39;soon&#39;, 702),
+ (&#39;under&#39;, 700),
+ (&#39;viewer&#39;, 699),
+ (&#39;age&#39;, 697),
+ (&#39;days&#39;, 696),
+ (&#39;stories&#39;, 696),
+ (&#39;felt&#39;, 694),
+ (&#39;simple&#39;, 694),
+ (&#39;roles&#39;, 693),
+ (&#39;video&#39;, 688),
+ (&#39;name&#39;, 683),
+ (&#39;either&#39;, 683),
+ (&#39;doing&#39;, 677),
+ (&#39;turns&#39;, 674),
+ (&#39;wants&#39;, 671),
+ (&#39;close&#39;, 671),
+ (&#39;title&#39;, 669),
+ (&#39;wrong&#39;, 668),
+ (&#39;went&#39;, 666),
+ (&#39;james&#39;, 665),
+ (&#39;evil&#39;, 659),
+ (&#39;budget&#39;, 657),
+ (&#39;episodes&#39;, 657),
+ (&#39;relationship&#39;, 655),
+ (&#39;fantastic&#39;, 653),
+ (&#39;piece&#39;, 653),
+ (&#39;david&#39;, 651),
+ (&#39;turn&#39;, 648),
+ (&#39;murder&#39;, 646),
+ (&#39;parts&#39;, 645),
+ (&#39;brother&#39;, 644),
+ (&#39;absolutely&#39;, 643),
+ (&#39;head&#39;, 643),
+ (&#39;experience&#39;, 642),
+ (&#39;eyes&#39;, 641),
+ (&#39;sex&#39;, 638),
+ (&#39;direction&#39;, 637),
+ (&#39;called&#39;, 637),
+ (&#39;directed&#39;, 636),
+ (&#39;lines&#39;, 634),
+ (&#39;behind&#39;, 633),
+ (&#39;sort&#39;, 632),
+ (&#39;actress&#39;, 631),
+ (&#39;lead&#39;, 630),
+ (&#39;oscar&#39;, 628),
+ (&#39;including&#39;, 627),
+ (&#39;example&#39;, 627),
+ (&#39;known&#39;, 625),
+ (&#39;musical&#39;, 625),
+ (&#39;chance&#39;, 621),
+ (&#39;score&#39;, 620),
+ (&#39;already&#39;, 619),
+ (&#39;feeling&#39;, 619),
+ (&#39;hit&#39;, 619),
+ (&#39;voice&#39;, 615),
+ (&#39;moment&#39;, 612),
+ (&#39;living&#39;, 612),
+ (&#39;low&#39;, 610),
+ (&#39;supporting&#39;, 610),
+ (&#39;ago&#39;, 609),
+ (&#39;themselves&#39;, 608),
+ (&#39;reality&#39;, 605),
+ (&#39;hilarious&#39;, 605),
+ (&#39;jack&#39;, 604),
+ (&#39;told&#39;, 603),
+ (&#39;hand&#39;, 601),
+ (&#39;quality&#39;, 600),
+ (&#39;moving&#39;, 600),
+ (&#39;dialogue&#39;, 600),
+ (&#39;song&#39;, 599),
+ (&#39;happy&#39;, 599),
+ (&#39;matter&#39;, 598),
+ (&#39;paul&#39;, 598),
+ (&#39;light&#39;, 594),
+ (&#39;future&#39;, 593),
+ (&#39;entire&#39;, 592),
+ (&#39;finds&#39;, 591),
+ (&#39;gave&#39;, 589),
+ (&#39;laugh&#39;, 587),
+ (&#39;released&#39;, 586),
+ (&#39;expect&#39;, 584),
+ (&#39;fight&#39;, 581),
+ (&#39;particularly&#39;, 580),
+ (&#39;cinematography&#39;, 579),
+ (&#39;police&#39;, 579),
+ (&#39;whose&#39;, 578),
+ (&#39;type&#39;, 578),
+ (&#39;sound&#39;, 578),
+ (&#39;view&#39;, 573),
+ (&#39;enjoyable&#39;, 573),
+ (&#39;number&#39;, 572),
+ (&#39;romantic&#39;, 572),
+ (&#39;husband&#39;, 572),
+ (&#39;daughter&#39;, 572),
+ (&#39;documentary&#39;, 571),
+ (&#39;self&#39;, 570),
+ (&#39;superb&#39;, 569),
+ (&#39;modern&#39;, 569),
+ (&#39;took&#39;, 569),
+ (&#39;robert&#39;, 569),
+ (&#39;mean&#39;, 566),
+ (&#39;shown&#39;, 563),
+ (&#39;coming&#39;, 561),
+ (&#39;important&#39;, 560),
+ (&#39;king&#39;, 559),
+ (&#39;leave&#39;, 559),
+ (&#39;change&#39;, 558),
+ (&#39;somewhat&#39;, 555),
+ (&#39;wanted&#39;, 555),
+ (&#39;tells&#39;, 554),
+ (&#39;events&#39;, 552),
+ (&#39;run&#39;, 552),
+ (&#39;career&#39;, 552),
+ (&#39;country&#39;, 552),
+ (&#39;heard&#39;, 550),
+ (&#39;season&#39;, 550),
+ (&#39;greatest&#39;, 549),
+ (&#39;girls&#39;, 549),
+ (&#39;etc&#39;, 547),
+ (&#39;care&#39;, 546),
+ (&#39;starts&#39;, 545),
+ (&#39;english&#39;, 542),
+ (&#39;killer&#39;, 541),
+ (&#39;tale&#39;, 540),
+ (&#39;guys&#39;, 540),
+ (&#39;totally&#39;, 540),
+ (&#39;animation&#39;, 540),
+ (&#39;usual&#39;, 539),
+ (&#39;miss&#39;, 535),
+ (&#39;opinion&#39;, 535),
+ (&#39;easy&#39;, 531),
+ (&#39;violence&#39;, 531),
+ (&#39;songs&#39;, 530),
+ (&#39;british&#39;, 528),
+ (&#39;says&#39;, 526),
+ (&#39;realistic&#39;, 525),
+ (&#39;writing&#39;, 524),
+ (&#39;writer&#39;, 522),
+ (&#39;act&#39;, 522),
+ (&#39;comic&#39;, 521),
+ (&#39;thriller&#39;, 519),
+ (&#39;television&#39;, 517),
+ (&#39;power&#39;, 516),
+ (&#39;ones&#39;, 515),
+ (&#39;kid&#39;, 514),
+ (&#39;york&#39;, 513),
+ (&#39;novel&#39;, 513),
+ (&#39;alone&#39;, 512),
+ (&#39;problem&#39;, 512),
+ (&#39;attention&#39;, 509),
+ (&#39;involved&#39;, 508),
+ (&#39;kill&#39;, 507),
+ (&#39;extremely&#39;, 507),
+ (&#39;seemed&#39;, 506),
+ (&#39;hero&#39;, 505),
+ (&#39;french&#39;, 505),
+ (&#39;rock&#39;, 504),
+ (&#39;stuff&#39;, 501),
+ (&#39;wish&#39;, 499),
+ (&#39;begins&#39;, 498),
+ (&#39;taken&#39;, 497),
+ (&#39;sad&#39;, 497),
+ (&#39;ways&#39;, 496),
+ (&#39;richard&#39;, 495),
+ (&#39;knows&#39;, 494),
+ (&#39;atmosphere&#39;, 493),
+ (&#39;similar&#39;, 491),
+ (&#39;surprised&#39;, 491),
+ (&#39;taking&#39;, 491),
+ (&#39;car&#39;, 491),
+ (&#39;george&#39;, 490),
+ (&#39;perfectly&#39;, 490),
+ (&#39;across&#39;, 489),
+ (&#39;team&#39;, 489),
+ (&#39;eye&#39;, 489),
+ (&#39;sequence&#39;, 489),
+ (&#39;room&#39;, 488),
+ (&#39;due&#39;, 488),
+ (&#39;among&#39;, 488),
+ (&#39;serious&#39;, 488),
+ (&#39;powerful&#39;, 488),
+ (&#39;strange&#39;, 487),
+ (&#39;order&#39;, 487),
+ (&#39;cannot&#39;, 487),
+ (&#39;b&#39;, 487),
+ (&#39;beauty&#39;, 486),
+ (&#39;famous&#39;, 485),
+ (&#39;happened&#39;, 484),
+ (&#39;tries&#39;, 484),
+ (&#39;herself&#39;, 484),
+ (&#39;myself&#39;, 484),
+ (&#39;class&#39;, 483),
+ (&#39;four&#39;, 482),
+ (&#39;cool&#39;, 481),
+ (&#39;release&#39;, 479),
+ (&#39;anyway&#39;, 479),
+ (&#39;theme&#39;, 479),
+ (&#39;opening&#39;, 478),
+ (&#39;entertainment&#39;, 477),
+ (&#39;slow&#39;, 475),
+ (&#39;ends&#39;, 475),
+ (&#39;unique&#39;, 475),
+ (&#39;exactly&#39;, 475),
+ (&#39;easily&#39;, 474),
+ (&#39;level&#39;, 474),
+ (&#39;o&#39;, 474),
+ (&#39;red&#39;, 474),
+ (&#39;interest&#39;, 472),
+ (&#39;happen&#39;, 471),
+ (&#39;crime&#39;, 470),
+ (&#39;viewing&#39;, 468),
+ (&#39;sets&#39;, 467),
+ (&#39;memorable&#39;, 467),
+ (&#39;stop&#39;, 466),
+ (&#39;group&#39;, 466),
+ (&#39;problems&#39;, 463),
+ (&#39;dance&#39;, 463),
+ (&#39;working&#39;, 463),
+ (&#39;sister&#39;, 463),
+ (&#39;message&#39;, 463),
+ (&#39;knew&#39;, 462),
+ (&#39;mystery&#39;, 461),
+ (&#39;nature&#39;, 461),
+ (&#39;bring&#39;, 460),
+ (&#39;believable&#39;, 459),
+ (&#39;thinking&#39;, 459),
+ (&#39;brought&#39;, 459),
+ (&#39;mostly&#39;, 458),
+ (&#39;disney&#39;, 457),
+ (&#39;couldn&#39;, 457),
+ (&#39;society&#39;, 456),
+ (&#39;lady&#39;, 455),
+ (&#39;within&#39;, 455),
+ (&#39;blood&#39;, 454),
+ (&#39;parents&#39;, 453),
+ (&#39;upon&#39;, 453),
+ (&#39;viewers&#39;, 453),
+ (&#39;meets&#39;, 452),
+ (&#39;form&#39;, 452),
+ (&#39;peter&#39;, 452),
+ (&#39;tom&#39;, 452),
+ (&#39;usually&#39;, 452),
+ (&#39;soundtrack&#39;, 452),
+ (&#39;local&#39;, 450),
+ (&#39;certain&#39;, 448),
+ (&#39;follow&#39;, 448),
+ (&#39;whether&#39;, 447),
+ (&#39;possible&#39;, 446),
+ (&#39;emotional&#39;, 445),
+ (&#39;killed&#39;, 444),
+ (&#39;above&#39;, 444),
+ (&#39;de&#39;, 444),
+ (&#39;god&#39;, 443),
+ (&#39;middle&#39;, 443),
+ (&#39;needs&#39;, 442),
+ (&#39;happens&#39;, 442),
+ (&#39;flick&#39;, 442),
+ (&#39;masterpiece&#39;, 441),
+ (&#39;period&#39;, 440),
+ (&#39;major&#39;, 440),
+ (&#39;named&#39;, 439),
+ (&#39;haven&#39;, 439),
+ (&#39;particular&#39;, 438),
+ (&#39;th&#39;, 438),
+ (&#39;earth&#39;, 437),
+ (&#39;feature&#39;, 437),
+ (&#39;stand&#39;, 436),
+ (&#39;words&#39;, 435),
+ (&#39;typical&#39;, 435),
+ (&#39;elements&#39;, 433),
+ (&#39;obviously&#39;, 433),
+ (&#39;romance&#39;, 431),
+ (&#39;jane&#39;, 430),
+ (&#39;yourself&#39;, 427),
+ (&#39;showing&#39;, 427),
+ (&#39;brings&#39;, 426),
+ (&#39;fantasy&#39;, 426),
+ (&#39;guess&#39;, 423),
+ (&#39;america&#39;, 423),
+ (&#39;unfortunately&#39;, 422),
+ (&#39;huge&#39;, 422),
+ (&#39;indeed&#39;, 421),
+ (&#39;running&#39;, 421),
+ (&#39;talent&#39;, 420),
+ (&#39;stage&#39;, 419),
+ (&#39;started&#39;, 418),
+ (&#39;leads&#39;, 417),
+ (&#39;sweet&#39;, 417),
+ (&#39;japanese&#39;, 417),
+ (&#39;poor&#39;, 416),
+ (&#39;deal&#39;, 416),
+ (&#39;incredible&#39;, 413),
+ (&#39;personal&#39;, 413),
+ (&#39;fast&#39;, 412),
+ (&#39;became&#39;, 410),
+ (&#39;deep&#39;, 410),
+ (&#39;hours&#39;, 409),
+ (&#39;giving&#39;, 408),
+ (&#39;nearly&#39;, 408),
+ (&#39;dream&#39;, 408),
+ (&#39;clearly&#39;, 407),
+ (&#39;turned&#39;, 407),
+ (&#39;obvious&#39;, 406),
+ (&#39;near&#39;, 406),
+ (&#39;cut&#39;, 405),
+ (&#39;surprise&#39;, 405),
+ (&#39;era&#39;, 404),
+ (&#39;body&#39;, 404),
+ (&#39;hour&#39;, 403),
+ (&#39;female&#39;, 403),
+ (&#39;five&#39;, 403),
+ (&#39;note&#39;, 399),
+ (&#39;learn&#39;, 398),
+ (&#39;truth&#39;, 398),
+ (&#39;except&#39;, 397),
+ (&#39;feels&#39;, 397),
+ (&#39;match&#39;, 397),
+ (&#39;tony&#39;, 397),
+ (&#39;filmed&#39;, 394),
+ (&#39;clear&#39;, 394),
+ (&#39;complete&#39;, 394),
+ (&#39;street&#39;, 393),
+ (&#39;eventually&#39;, 393),
+ (&#39;keeps&#39;, 393),
+ (&#39;older&#39;, 393),
+ (&#39;lots&#39;, 393),
+ (&#39;buy&#39;, 392),
+ (&#39;william&#39;, 391),
+ (&#39;stewart&#39;, 391),
+ (&#39;fall&#39;, 390),
+ (&#39;joe&#39;, 390),
+ (&#39;meet&#39;, 390),
+ (&#39;unlike&#39;, 389),
+ (&#39;talking&#39;, 389),
+ (&#39;shots&#39;, 389),
+ (&#39;rating&#39;, 389),
+ (&#39;difficult&#39;, 389),
+ (&#39;dramatic&#39;, 388),
+ (&#39;means&#39;, 388),
+ (&#39;situation&#39;, 386),
+ (&#39;wonder&#39;, 386),
+ (&#39;present&#39;, 386),
+ (&#39;appears&#39;, 386),
+ (&#39;subject&#39;, 386),
+ (&#39;comments&#39;, 385),
+ (&#39;general&#39;, 383),
+ (&#39;sequences&#39;, 383),
+ (&#39;lee&#39;, 383),
+ (&#39;points&#39;, 382),
+ (&#39;earlier&#39;, 382),
+ (&#39;gone&#39;, 379),
+ (&#39;check&#39;, 379),
+ (&#39;suspense&#39;, 378),
+ (&#39;recommended&#39;, 378),
+ (&#39;ten&#39;, 378),
+ (&#39;third&#39;, 377),
+ (&#39;business&#39;, 377),
+ (&#39;talk&#39;, 375),
+ (&#39;leaves&#39;, 375),
+ (&#39;beyond&#39;, 375),
+ (&#39;portrayal&#39;, 374),
+ (&#39;beautifully&#39;, 373),
+ (&#39;single&#39;, 372),
+ (&#39;bill&#39;, 372),
+ (&#39;plenty&#39;, 371),
+ (&#39;word&#39;, 371),
+ (&#39;whom&#39;, 370),
+ (&#39;falls&#39;, 370),
+ (&#39;scary&#39;, 369),
+ (&#39;non&#39;, 369),
+ (&#39;figure&#39;, 369),
+ (&#39;battle&#39;, 369),
+ (&#39;using&#39;, 368),
+ (&#39;return&#39;, 368),
+ (&#39;doubt&#39;, 367),
+ (&#39;add&#39;, 367),
+ (&#39;hear&#39;, 366),
+ (&#39;solid&#39;, 366),
+ (&#39;success&#39;, 366),
+ (&#39;jokes&#39;, 365),
+ (&#39;oh&#39;, 365),
+ (&#39;touching&#39;, 365),
+ (&#39;political&#39;, 365),
+ (&#39;hell&#39;, 364),
+ (&#39;awesome&#39;, 364),
+ (&#39;boys&#39;, 364),
+ (&#39;sexual&#39;, 362),
+ (&#39;recently&#39;, 362),
+ (&#39;dog&#39;, 362),
+ (&#39;please&#39;, 361),
+ (&#39;wouldn&#39;, 361),
+ (&#39;straight&#39;, 361),
+ (&#39;features&#39;, 361),
+ (&#39;forget&#39;, 360),
+ (&#39;setting&#39;, 360),
+ (&#39;lack&#39;, 360),
+ (&#39;married&#39;, 359),
+ (&#39;mark&#39;, 359),
+ (&#39;social&#39;, 357),
+ (&#39;interested&#39;, 356),
+ (&#39;adventure&#39;, 356),
+ (&#39;actual&#39;, 355),
+ (&#39;terrific&#39;, 355),
+ (&#39;sees&#39;, 355),
+ (&#39;brothers&#39;, 355),
+ (&#39;move&#39;, 354),
+ (&#39;call&#39;, 354),
+ (&#39;various&#39;, 353),
+ (&#39;theater&#39;, 353),
+ (&#39;dr&#39;, 353),
+ (&#39;animated&#39;, 352),
+ (&#39;western&#39;, 351),
+ (&#39;baby&#39;, 350),
+ (&#39;space&#39;, 350),
+ (&#39;leading&#39;, 348),
+ (&#39;disappointed&#39;, 348),
+ (&#39;portrayed&#39;, 346),
+ (&#39;aren&#39;, 346),
+ (&#39;screenplay&#39;, 345),
+ (&#39;smith&#39;, 345),
+ (&#39;towards&#39;, 344),
+ (&#39;hate&#39;, 344),
+ (&#39;noir&#39;, 343),
+ (&#39;outstanding&#39;, 342),
+ (&#39;decent&#39;, 342),
+ (&#39;kelly&#39;, 342),
+ (&#39;directors&#39;, 341),
+ (&#39;journey&#39;, 341),
+ (&#39;none&#39;, 340),
+ (&#39;looked&#39;, 340),
+ (&#39;effective&#39;, 340),
+ (&#39;storyline&#39;, 339),
+ (&#39;caught&#39;, 339),
+ (&#39;sci&#39;, 339),
+ (&#39;fi&#39;, 339),
+ (&#39;cold&#39;, 339),
+ (&#39;mary&#39;, 339),
+ (&#39;rich&#39;, 338),
+ (&#39;charming&#39;, 338),
+ (&#39;popular&#39;, 337),
+ (&#39;rare&#39;, 337),
+ (&#39;manages&#39;, 337),
+ (&#39;harry&#39;, 337),
+ (&#39;spirit&#39;, 336),
+ (&#39;appreciate&#39;, 335),
+ (&#39;open&#39;, 335),
+ (&#39;moves&#39;, 334),
+ (&#39;basically&#39;, 334),
+ (&#39;acted&#39;, 334),
+ (&#39;inside&#39;, 333),
+ (&#39;boring&#39;, 333),
+ (&#39;century&#39;, 333),
+ (&#39;mention&#39;, 333),
+ (&#39;deserves&#39;, 333),
+ (&#39;subtle&#39;, 333),
+ (&#39;pace&#39;, 333),
+ (&#39;familiar&#39;, 332),
+ (&#39;background&#39;, 332),
+ (&#39;ben&#39;, 331),
+ (&#39;creepy&#39;, 330),
+ (&#39;supposed&#39;, 330),
+ (&#39;secret&#39;, 329),
+ (&#39;die&#39;, 328),
+ (&#39;jim&#39;, 328),
+ (&#39;question&#39;, 327),
+ (&#39;effect&#39;, 327),
+ (&#39;natural&#39;, 327),
+ (&#39;impressive&#39;, 326),
+ (&#39;rate&#39;, 326),
+ (&#39;language&#39;, 326),
+ (&#39;saying&#39;, 325),
+ (&#39;intelligent&#39;, 325),
+ (&#39;telling&#39;, 324),
+ (&#39;realize&#39;, 324),
+ (&#39;material&#39;, 324),
+ (&#39;scott&#39;, 324),
+ (&#39;singing&#39;, 323),
+ (&#39;dancing&#39;, 322),
+ (&#39;visual&#39;, 321),
+ (&#39;adult&#39;, 321),
+ (&#39;imagine&#39;, 321),
+ (&#39;kept&#39;, 320),
+ (&#39;office&#39;, 320),
+ (&#39;uses&#39;, 319),
+ (&#39;pure&#39;, 318),
+ (&#39;wait&#39;, 318),
+ (&#39;stunning&#39;, 318),
+ (&#39;review&#39;, 317),
+ (&#39;previous&#39;, 317),
+ (&#39;copy&#39;, 317),
+ (&#39;seriously&#39;, 317),
+ (&#39;reading&#39;, 316),
+ (&#39;create&#39;, 316),
+ (&#39;hot&#39;, 316),
+ (&#39;created&#39;, 316),
+ (&#39;magic&#39;, 316),
+ (&#39;somehow&#39;, 316),
+ (&#39;stay&#39;, 315),
+ (&#39;attempt&#39;, 315),
+ (&#39;escape&#39;, 315),
+ (&#39;crazy&#39;, 315),
+ (&#39;air&#39;, 315),
+ (&#39;frank&#39;, 315),
+ (&#39;hands&#39;, 314),
+ (&#39;filled&#39;, 313),
+ (&#39;expected&#39;, 312),
+ (&#39;average&#39;, 312),
+ (&#39;surprisingly&#39;, 312),
+ (&#39;complex&#39;, 311),
+ (&#39;quickly&#39;, 310),
+ (&#39;successful&#39;, 310),
+ (&#39;studio&#39;, 310),
+ (&#39;plus&#39;, 309),
+ (&#39;male&#39;, 309),
+ (&#39;co&#39;, 307),
+ (&#39;images&#39;, 306),
+ (&#39;casting&#39;, 306),
+ (&#39;following&#39;, 306),
+ (&#39;minute&#39;, 306),
+ (&#39;exciting&#39;, 306),
+ (&#39;members&#39;, 305),
+ (&#39;follows&#39;, 305),
+ (&#39;themes&#39;, 305),
+ (&#39;german&#39;, 305),
+ (&#39;reasons&#39;, 305),
+ (&#39;e&#39;, 305),
+ (&#39;touch&#39;, 304),
+ (&#39;edge&#39;, 304),
+ (&#39;free&#39;, 304),
+ (&#39;cute&#39;, 304),
+ (&#39;genius&#39;, 304),
+ (&#39;outside&#39;, 303),
+ (&#39;reviews&#39;, 302),
+ (&#39;admit&#39;, 302),
+ (&#39;ok&#39;, 302),
+ (&#39;younger&#39;, 302),
+ (&#39;fighting&#39;, 301),
+ (&#39;odd&#39;, 301),
+ (&#39;master&#39;, 301),
+ (&#39;recent&#39;, 300),
+ (&#39;thanks&#39;, 300),
+ (&#39;break&#39;, 300),
+ (&#39;comment&#39;, 300),
+ (&#39;apart&#39;, 299),
+ (&#39;emotions&#39;, 298),
+ (&#39;lovely&#39;, 298),
+ (&#39;begin&#39;, 298),
+ (&#39;doctor&#39;, 297),
+ (&#39;party&#39;, 297),
+ (&#39;italian&#39;, 297),
+ (&#39;la&#39;, 296),
+ (&#39;missed&#39;, 296),
+ ...]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lets take a look at the most common words.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Most common negative words:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">negative_words_counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Most common negative words:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;&#39;, 561462),
+ (&#39;.&#39;, 167538),
+ (&#39;the&#39;, 163389),
+ (&#39;a&#39;, 79321),
+ (&#39;and&#39;, 74385),
+ (&#39;of&#39;, 69009),
+ (&#39;to&#39;, 68974),
+ (&#39;br&#39;, 52637),
+ (&#39;is&#39;, 50083),
+ (&#39;it&#39;, 48327),
+ (&#39;i&#39;, 46880),
+ (&#39;in&#39;, 43753),
+ (&#39;this&#39;, 40920),
+ (&#39;that&#39;, 37615),
+ (&#39;s&#39;, 31546),
+ (&#39;was&#39;, 26291),
+ (&#39;movie&#39;, 24965),
+ (&#39;for&#39;, 21927),
+ (&#39;but&#39;, 21781),
+ (&#39;with&#39;, 20878),
+ (&#39;as&#39;, 20625),
+ (&#39;t&#39;, 20361),
+ (&#39;film&#39;, 19218),
+ (&#39;you&#39;, 17549),
+ (&#39;on&#39;, 17192),
+ (&#39;not&#39;, 16354),
+ (&#39;have&#39;, 15144),
+ (&#39;are&#39;, 14623),
+ (&#39;be&#39;, 14541),
+ (&#39;he&#39;, 13856),
+ (&#39;one&#39;, 13134),
+ (&#39;they&#39;, 13011),
+ (&#39;at&#39;, 12279),
+ (&#39;his&#39;, 12147),
+ (&#39;all&#39;, 12036),
+ (&#39;so&#39;, 11463),
+ (&#39;like&#39;, 11238),
+ (&#39;there&#39;, 10775),
+ (&#39;just&#39;, 10619),
+ (&#39;by&#39;, 10549),
+ (&#39;or&#39;, 10272),
+ (&#39;an&#39;, 10266),
+ (&#39;who&#39;, 9969),
+ (&#39;from&#39;, 9731),
+ (&#39;if&#39;, 9518),
+ (&#39;about&#39;, 9061),
+ (&#39;out&#39;, 8979),
+ (&#39;what&#39;, 8422),
+ (&#39;some&#39;, 8306),
+ (&#39;no&#39;, 8143),
+ (&#39;her&#39;, 7947),
+ (&#39;even&#39;, 7687),
+ (&#39;can&#39;, 7653),
+ (&#39;has&#39;, 7604),
+ (&#39;good&#39;, 7423),
+ (&#39;bad&#39;, 7401),
+ (&#39;would&#39;, 7036),
+ (&#39;up&#39;, 6970),
+ (&#39;only&#39;, 6781),
+ (&#39;more&#39;, 6730),
+ (&#39;when&#39;, 6726),
+ (&#39;she&#39;, 6444),
+ (&#39;really&#39;, 6262),
+ (&#39;time&#39;, 6209),
+ (&#39;had&#39;, 6142),
+ (&#39;my&#39;, 6015),
+ (&#39;were&#39;, 6001),
+ (&#39;which&#39;, 5780),
+ (&#39;very&#39;, 5764),
+ (&#39;me&#39;, 5606),
+ (&#39;see&#39;, 5452),
+ (&#39;don&#39;, 5336),
+ (&#39;we&#39;, 5328),
+ (&#39;their&#39;, 5278),
+ (&#39;do&#39;, 5236),
+ (&#39;story&#39;, 5208),
+ (&#39;than&#39;, 5183),
+ (&#39;been&#39;, 5100),
+ (&#39;much&#39;, 5078),
+ (&#39;get&#39;, 5037),
+ (&#39;because&#39;, 4966),
+ (&#39;people&#39;, 4806),
+ (&#39;then&#39;, 4761),
+ (&#39;make&#39;, 4722),
+ (&#39;how&#39;, 4688),
+ (&#39;could&#39;, 4686),
+ (&#39;any&#39;, 4658),
+ (&#39;into&#39;, 4567),
+ (&#39;made&#39;, 4541),
+ (&#39;first&#39;, 4306),
+ (&#39;other&#39;, 4305),
+ (&#39;well&#39;, 4254),
+ (&#39;too&#39;, 4174),
+ (&#39;them&#39;, 4165),
+ (&#39;plot&#39;, 4154),
+ (&#39;movies&#39;, 4080),
+ (&#39;acting&#39;, 4056),
+ (&#39;will&#39;, 3993),
+ (&#39;way&#39;, 3989),
+ (&#39;most&#39;, 3919),
+ (&#39;him&#39;, 3858),
+ (&#39;after&#39;, 3838),
+ (&#39;its&#39;, 3655),
+ (&#39;think&#39;, 3643),
+ (&#39;also&#39;, 3608),
+ (&#39;characters&#39;, 3600),
+ (&#39;off&#39;, 3567),
+ (&#39;watch&#39;, 3550),
+ (&#39;character&#39;, 3506),
+ (&#39;did&#39;, 3506),
+ (&#39;why&#39;, 3463),
+ (&#39;being&#39;, 3393),
+ (&#39;better&#39;, 3358),
+ (&#39;know&#39;, 3334),
+ (&#39;over&#39;, 3316),
+ (&#39;seen&#39;, 3265),
+ (&#39;ever&#39;, 3263),
+ (&#39;never&#39;, 3259),
+ (&#39;your&#39;, 3233),
+ (&#39;where&#39;, 3219),
+ (&#39;two&#39;, 3173),
+ (&#39;little&#39;, 3096),
+ (&#39;films&#39;, 3077),
+ (&#39;here&#39;, 3027),
+ (&#39;m&#39;, 3000),
+ (&#39;nothing&#39;, 2990),
+ (&#39;say&#39;, 2982),
+ (&#39;end&#39;, 2954),
+ (&#39;something&#39;, 2942),
+ (&#39;should&#39;, 2920),
+ (&#39;many&#39;, 2909),
+ (&#39;does&#39;, 2871),
+ (&#39;thing&#39;, 2866),
+ (&#39;show&#39;, 2862),
+ (&#39;ve&#39;, 2829),
+ (&#39;scene&#39;, 2816),
+ (&#39;scenes&#39;, 2785),
+ (&#39;these&#39;, 2724),
+ (&#39;go&#39;, 2717),
+ (&#39;didn&#39;, 2646),
+ (&#39;great&#39;, 2640),
+ (&#39;watching&#39;, 2640),
+ (&#39;re&#39;, 2620),
+ (&#39;doesn&#39;, 2601),
+ (&#39;through&#39;, 2560),
+ (&#39;such&#39;, 2544),
+ (&#39;man&#39;, 2516),
+ (&#39;worst&#39;, 2480),
+ (&#39;actually&#39;, 2449),
+ (&#39;actors&#39;, 2437),
+ (&#39;life&#39;, 2429),
+ (&#39;back&#39;, 2424),
+ (&#39;while&#39;, 2418),
+ (&#39;director&#39;, 2405),
+ (&#39;funny&#39;, 2336),
+ (&#39;going&#39;, 2319),
+ (&#39;still&#39;, 2283),
+ (&#39;another&#39;, 2254),
+ (&#39;look&#39;, 2247),
+ (&#39;now&#39;, 2237),
+ (&#39;old&#39;, 2215),
+ (&#39;those&#39;, 2212),
+ (&#39;real&#39;, 2170),
+ (&#39;few&#39;, 2158),
+ (&#39;love&#39;, 2152),
+ (&#39;horror&#39;, 2150),
+ (&#39;before&#39;, 2147),
+ (&#39;want&#39;, 2141),
+ (&#39;minutes&#39;, 2126),
+ (&#39;pretty&#39;, 2115),
+ (&#39;best&#39;, 2094),
+ (&#39;though&#39;, 2091),
+ (&#39;same&#39;, 2081),
+ (&#39;script&#39;, 2074),
+ (&#39;work&#39;, 2027),
+ (&#39;every&#39;, 2025),
+ (&#39;seems&#39;, 2023),
+ (&#39;least&#39;, 2011),
+ (&#39;enough&#39;, 1997),
+ (&#39;down&#39;, 1988),
+ (&#39;original&#39;, 1983),
+ (&#39;guy&#39;, 1964),
+ (&#39;got&#39;, 1952),
+ (&#39;around&#39;, 1943),
+ (&#39;part&#39;, 1942),
+ (&#39;lot&#39;, 1892),
+ (&#39;anything&#39;, 1874),
+ (&#39;find&#39;, 1860),
+ (&#39;new&#39;, 1854),
+ (&#39;again&#39;, 1849),
+ (&#39;isn&#39;, 1849),
+ (&#39;point&#39;, 1845),
+ (&#39;things&#39;, 1839),
+ (&#39;fact&#39;, 1839),
+ (&#39;give&#39;, 1823),
+ (&#39;makes&#39;, 1814),
+ (&#39;take&#39;, 1800),
+ (&#39;thought&#39;, 1798),
+ (&#39;d&#39;, 1770),
+ (&#39;whole&#39;, 1768),
+ (&#39;long&#39;, 1761),
+ (&#39;years&#39;, 1759),
+ (&#39;however&#39;, 1740),
+ (&#39;gets&#39;, 1714),
+ (&#39;making&#39;, 1695),
+ (&#39;cast&#39;, 1694),
+ (&#39;big&#39;, 1662),
+ (&#39;might&#39;, 1658),
+ (&#39;interesting&#39;, 1648),
+ (&#39;money&#39;, 1638),
+ (&#39;us&#39;, 1628),
+ (&#39;right&#39;, 1625),
+ (&#39;far&#39;, 1619),
+ (&#39;quite&#39;, 1596),
+ (&#39;without&#39;, 1595),
+ (&#39;come&#39;, 1595),
+ (&#39;almost&#39;, 1574),
+ (&#39;ll&#39;, 1567),
+ (&#39;action&#39;, 1566),
+ (&#39;awful&#39;, 1557),
+ (&#39;kind&#39;, 1539),
+ (&#39;reason&#39;, 1534),
+ (&#39;am&#39;, 1530),
+ (&#39;looks&#39;, 1528),
+ (&#39;must&#39;, 1522),
+ (&#39;done&#39;, 1510),
+ (&#39;comedy&#39;, 1504),
+ (&#39;someone&#39;, 1490),
+ (&#39;trying&#39;, 1486),
+ (&#39;wasn&#39;, 1484),
+ (&#39;poor&#39;, 1481),
+ (&#39;boring&#39;, 1478),
+ (&#39;instead&#39;, 1478),
+ (&#39;saw&#39;, 1475),
+ (&#39;away&#39;, 1469),
+ (&#39;girl&#39;, 1463),
+ (&#39;probably&#39;, 1444),
+ (&#39;believe&#39;, 1434),
+ (&#39;sure&#39;, 1433),
+ (&#39;looking&#39;, 1430),
+ (&#39;stupid&#39;, 1428),
+ (&#39;anyone&#39;, 1418),
+ (&#39;times&#39;, 1406),
+ (&#39;maybe&#39;, 1404),
+ (&#39;world&#39;, 1404),
+ (&#39;rather&#39;, 1394),
+ (&#39;terrible&#39;, 1391),
+ (&#39;may&#39;, 1390),
+ (&#39;last&#39;, 1390),
+ (&#39;since&#39;, 1388),
+ (&#39;let&#39;, 1385),
+ (&#39;tv&#39;, 1382),
+ (&#39;hard&#39;, 1374),
+ (&#39;between&#39;, 1374),
+ (&#39;waste&#39;, 1358),
+ (&#39;woman&#39;, 1356),
+ (&#39;feel&#39;, 1354),
+ (&#39;effects&#39;, 1348),
+ (&#39;half&#39;, 1341),
+ (&#39;own&#39;, 1333),
+ (&#39;young&#39;, 1317),
+ (&#39;music&#39;, 1316),
+ (&#39;idea&#39;, 1312),
+ (&#39;sense&#39;, 1306),
+ (&#39;bit&#39;, 1298),
+ (&#39;having&#39;, 1280),
+ (&#39;book&#39;, 1278),
+ (&#39;found&#39;, 1267),
+ (&#39;put&#39;, 1263),
+ (&#39;series&#39;, 1263),
+ (&#39;goes&#39;, 1256),
+ (&#39;worse&#39;, 1249),
+ (&#39;said&#39;, 1230),
+ (&#39;comes&#39;, 1224),
+ (&#39;role&#39;, 1222),
+ (&#39;main&#39;, 1220),
+ (&#39;else&#39;, 1199),
+ (&#39;everything&#39;, 1197),
+ (&#39;yet&#39;, 1196),
+ (&#39;low&#39;, 1189),
+ (&#39;screen&#39;, 1188),
+ (&#39;supposed&#39;, 1186),
+ (&#39;actor&#39;, 1185),
+ (&#39;either&#39;, 1183),
+ (&#39;budget&#39;, 1179),
+ (&#39;ending&#39;, 1179),
+ (&#39;audience&#39;, 1178),
+ (&#39;set&#39;, 1177),
+ (&#39;family&#39;, 1170),
+ (&#39;left&#39;, 1169),
+ (&#39;completely&#39;, 1168),
+ (&#39;both&#39;, 1158),
+ (&#39;wrong&#39;, 1155),
+ (&#39;always&#39;, 1151),
+ (&#39;course&#39;, 1148),
+ (&#39;place&#39;, 1148),
+ (&#39;seem&#39;, 1147),
+ (&#39;watched&#39;, 1142),
+ (&#39;day&#39;, 1132),
+ (&#39;simply&#39;, 1130),
+ (&#39;shot&#39;, 1126),
+ (&#39;mean&#39;, 1117),
+ (&#39;special&#39;, 1102),
+ (&#39;dead&#39;, 1101),
+ (&#39;three&#39;, 1094),
+ (&#39;house&#39;, 1085),
+ (&#39;oh&#39;, 1084),
+ (&#39;night&#39;, 1083),
+ (&#39;read&#39;, 1082),
+ (&#39;less&#39;, 1067),
+ (&#39;high&#39;, 1066),
+ (&#39;year&#39;, 1064),
+ (&#39;camera&#39;, 1061),
+ (&#39;worth&#39;, 1057),
+ (&#39;our&#39;, 1056),
+ (&#39;try&#39;, 1051),
+ (&#39;horrible&#39;, 1046),
+ (&#39;sex&#39;, 1046),
+ (&#39;video&#39;, 1043),
+ (&#39;black&#39;, 1039),
+ (&#39;although&#39;, 1036),
+ (&#39;couldn&#39;, 1036),
+ (&#39;once&#39;, 1033),
+ (&#39;rest&#39;, 1022),
+ (&#39;dvd&#39;, 1021),
+ (&#39;line&#39;, 1018),
+ (&#39;played&#39;, 1017),
+ (&#39;fun&#39;, 1007),
+ (&#39;during&#39;, 1006),
+ (&#39;production&#39;, 1003),
+ (&#39;everyone&#39;, 1002),
+ (&#39;play&#39;, 993),
+ (&#39;mind&#39;, 990),
+ (&#39;version&#39;, 989),
+ (&#39;kids&#39;, 989),
+ (&#39;seeing&#39;, 988),
+ (&#39;american&#39;, 980),
+ (&#39;given&#39;, 978),
+ (&#39;used&#39;, 969),
+ (&#39;performance&#39;, 968),
+ (&#39;especially&#39;, 963),
+ (&#39;together&#39;, 963),
+ (&#39;tell&#39;, 959),
+ (&#39;women&#39;, 958),
+ (&#39;start&#39;, 956),
+ (&#39;need&#39;, 955),
+ (&#39;second&#39;, 953),
+ (&#39;takes&#39;, 950),
+ (&#39;each&#39;, 950),
+ (&#39;wife&#39;, 944),
+ (&#39;dialogue&#39;, 942),
+ (&#39;use&#39;, 940),
+ (&#39;problem&#39;, 938),
+ (&#39;star&#39;, 934),
+ (&#39;unfortunately&#39;, 931),
+ (&#39;himself&#39;, 929),
+ (&#39;doing&#39;, 926),
+ (&#39;death&#39;, 922),
+ (&#39;name&#39;, 921),
+ (&#39;lines&#39;, 919),
+ (&#39;killer&#39;, 914),
+ (&#39;getting&#39;, 913),
+ (&#39;help&#39;, 905),
+ (&#39;couple&#39;, 902),
+ (&#39;fan&#39;, 902),
+ (&#39;head&#39;, 898),
+ (&#39;crap&#39;, 895),
+ (&#39;guess&#39;, 888),
+ (&#39;piece&#39;, 884),
+ (&#39;nice&#39;, 880),
+ (&#39;different&#39;, 878),
+ (&#39;school&#39;, 876),
+ (&#39;later&#39;, 875),
+ (&#39;entire&#39;, 869),
+ (&#39;shows&#39;, 860),
+ (&#39;next&#39;, 858),
+ (&#39;john&#39;, 858),
+ (&#39;short&#39;, 857),
+ (&#39;seemed&#39;, 857),
+ (&#39;hollywood&#39;, 850),
+ (&#39;home&#39;, 848),
+ (&#39;true&#39;, 846),
+ (&#39;person&#39;, 846),
+ (&#39;absolutely&#39;, 842),
+ (&#39;sort&#39;, 840),
+ (&#39;care&#39;, 839),
+ (&#39;understand&#39;, 836),
+ (&#39;plays&#39;, 835),
+ (&#39;felt&#39;, 834),
+ (&#39;written&#39;, 829),
+ (&#39;title&#39;, 828),
+ (&#39;men&#39;, 822),
+ (&#39;until&#39;, 821),
+ (&#39;flick&#39;, 816),
+ (&#39;decent&#39;, 815),
+ (&#39;face&#39;, 814),
+ (&#39;friends&#39;, 810),
+ (&#39;stars&#39;, 807),
+ (&#39;job&#39;, 807),
+ (&#39;case&#39;, 807),
+ (&#39;itself&#39;, 804),
+ (&#39;yes&#39;, 801),
+ (&#39;perhaps&#39;, 800),
+ (&#39;went&#39;, 797),
+ (&#39;wanted&#39;, 797),
+ (&#39;called&#39;, 796),
+ (&#39;annoying&#39;, 795),
+ (&#39;ridiculous&#39;, 790),
+ (&#39;tries&#39;, 790),
+ (&#39;laugh&#39;, 788),
+ (&#39;evil&#39;, 787),
+ (&#39;along&#39;, 786),
+ (&#39;top&#39;, 785),
+ (&#39;hour&#39;, 784),
+ (&#39;full&#39;, 783),
+ (&#39;came&#39;, 780),
+ (&#39;writing&#39;, 780),
+ (&#39;keep&#39;, 770),
+ (&#39;totally&#39;, 767),
+ (&#39;playing&#39;, 766),
+ (&#39;god&#39;, 765),
+ (&#39;won&#39;, 764),
+ (&#39;guys&#39;, 763),
+ (&#39;already&#39;, 762),
+ (&#39;gore&#39;, 757),
+ (&#39;direction&#39;, 748),
+ (&#39;save&#39;, 746),
+ (&#39;lost&#39;, 745),
+ (&#39;example&#39;, 744),
+ (&#39;sound&#39;, 742),
+ (&#39;war&#39;, 741),
+ (&#39;attempt&#39;, 735),
+ (&#39;car&#39;, 733),
+ (&#39;except&#39;, 733),
+ (&#39;moments&#39;, 732),
+ (&#39;blood&#39;, 732),
+ (&#39;obviously&#39;, 730),
+ (&#39;act&#39;, 729),
+ (&#39;remember&#39;, 728),
+ (&#39;kill&#39;, 727),
+ (&#39;truly&#39;, 726),
+ (&#39;white&#39;, 726),
+ (&#39;father&#39;, 726),
+ (&#39;b&#39;, 725),
+ (&#39;thinking&#39;, 720),
+ (&#39;ok&#39;, 716),
+ (&#39;finally&#39;, 716),
+ (&#39;turn&#39;, 711),
+ (&#39;quality&#39;, 701),
+ (&#39;lack&#39;, 698),
+ (&#39;style&#39;, 694),
+ (&#39;wouldn&#39;, 693),
+ (&#39;cheap&#39;, 691),
+ (&#39;none&#39;, 690),
+ (&#39;kid&#39;, 686),
+ (&#39;please&#39;, 686),
+ (&#39;boy&#39;, 685),
+ (&#39;seriously&#39;, 684),
+ (&#39;lead&#39;, 680),
+ (&#39;dull&#39;, 677),
+ (&#39;children&#39;, 676),
+ (&#39;starts&#39;, 675),
+ (&#39;stuff&#39;, 673),
+ (&#39;hope&#39;, 672),
+ (&#39;looked&#39;, 670),
+ (&#39;recommend&#39;, 669),
+ (&#39;under&#39;, 668),
+ (&#39;run&#39;, 667),
+ (&#39;killed&#39;, 667),
+ (&#39;enjoy&#39;, 666),
+ (&#39;others&#39;, 666),
+ (&#39;etc&#39;, 663),
+ (&#39;myself&#39;, 663),
+ (&#39;beginning&#39;, 662),
+ (&#39;girls&#39;, 662),
+ (&#39;against&#39;, 662),
+ (&#39;obvious&#39;, 660),
+ (&#39;small&#39;, 660),
+ (&#39;hell&#39;, 659),
+ (&#39;slow&#39;, 657),
+ (&#39;hand&#39;, 656),
+ (&#39;wonder&#39;, 652),
+ (&#39;lame&#39;, 652),
+ (&#39;becomes&#39;, 651),
+ (&#39;picture&#39;, 651),
+ (&#39;based&#39;, 650),
+ (&#39;early&#39;, 648),
+ (&#39;behind&#39;, 646),
+ (&#39;poorly&#39;, 644),
+ (&#39;avoid&#39;, 642),
+ (&#39;apparently&#39;, 640),
+ (&#39;complete&#39;, 640),
+ (&#39;happens&#39;, 639),
+ (&#39;anyway&#39;, 638),
+ (&#39;classic&#39;, 637),
+ (&#39;several&#39;, 636),
+ (&#39;despite&#39;, 635),
+ (&#39;certainly&#39;, 635),
+ (&#39;episode&#39;, 635),
+ (&#39;often&#39;, 631),
+ (&#39;cut&#39;, 630),
+ (&#39;writer&#39;, 630),
+ (&#39;mother&#39;, 628),
+ (&#39;predictable&#39;, 628),
+ (&#39;gave&#39;, 628),
+ (&#39;become&#39;, 627),
+ (&#39;close&#39;, 625),
+ (&#39;fans&#39;, 624),
+ (&#39;saying&#39;, 621),
+ (&#39;scary&#39;, 619),
+ (&#39;stop&#39;, 618),
+ (&#39;live&#39;, 618),
+ (&#39;wants&#39;, 617),
+ (&#39;self&#39;, 615),
+ (&#39;mr&#39;, 612),
+ (&#39;jokes&#39;, 611),
+ (&#39;friend&#39;, 611),
+ (&#39;cannot&#39;, 610),
+ (&#39;overall&#39;, 609),
+ (&#39;cinema&#39;, 604),
+ (&#39;child&#39;, 603),
+ (&#39;silly&#39;, 601),
+ (&#39;beautiful&#39;, 596),
+ (&#39;human&#39;, 595),
+ (&#39;expect&#39;, 594),
+ (&#39;liked&#39;, 593),
+ (&#39;happened&#39;, 592),
+ (&#39;bunch&#39;, 590),
+ (&#39;entertaining&#39;, 590),
+ (&#39;actress&#39;, 588),
+ (&#39;final&#39;, 588),
+ (&#39;says&#39;, 584),
+ (&#39;performances&#39;, 584),
+ (&#39;turns&#39;, 577),
+ (&#39;humor&#39;, 577),
+ (&#39;themselves&#39;, 576),
+ (&#39;eyes&#39;, 576),
+ (&#39;hours&#39;, 574),
+ (&#39;happen&#39;, 573),
+ (&#39;basically&#39;, 572),
+ (&#39;days&#39;, 572),
+ (&#39;running&#39;, 571),
+ (&#39;involved&#39;, 569),
+ (&#39;disappointed&#39;, 569),
+ (&#39;call&#39;, 569),
+ (&#39;directed&#39;, 568),
+ (&#39;group&#39;, 568),
+ (&#39;fight&#39;, 567),
+ (&#39;daughter&#39;, 566),
+ (&#39;talking&#39;, 566),
+ (&#39;body&#39;, 566),
+ (&#39;badly&#39;, 565),
+ (&#39;sorry&#39;, 565),
+ (&#39;throughout&#39;, 563),
+ (&#39;viewer&#39;, 563),
+ (&#39;yourself&#39;, 562),
+ (&#39;extremely&#39;, 562),
+ (&#39;interest&#39;, 561),
+ (&#39;heard&#39;, 561),
+ (&#39;violence&#39;, 561),
+ (&#39;shots&#39;, 559),
+ (&#39;side&#39;, 557),
+ (&#39;word&#39;, 556),
+ (&#39;art&#39;, 555),
+ (&#39;possible&#39;, 554),
+ (&#39;dark&#39;, 551),
+ (&#39;game&#39;, 551),
+ (&#39;hero&#39;, 550),
+ (&#39;alone&#39;, 549),
+ (&#39;son&#39;, 547),
+ (&#39;type&#39;, 547),
+ (&#39;leave&#39;, 547),
+ (&#39;gives&#39;, 546),
+ (&#39;parts&#39;, 546),
+ (&#39;single&#39;, 546),
+ (&#39;started&#39;, 545),
+ (&#39;female&#39;, 543),
+ (&#39;rating&#39;, 541),
+ (&#39;mess&#39;, 541),
+ (&#39;voice&#39;, 541),
+ (&#39;aren&#39;, 540),
+ (&#39;town&#39;, 540),
+ (&#39;drama&#39;, 538),
+ (&#39;definitely&#39;, 537),
+ (&#39;unless&#39;, 536),
+ (&#39;review&#39;, 534),
+ (&#39;effort&#39;, 533),
+ (&#39;weak&#39;, 533),
+ (&#39;able&#39;, 533),
+ (&#39;took&#39;, 531),
+ (&#39;non&#39;, 530),
+ (&#39;five&#39;, 530),
+ (&#39;matter&#39;, 529),
+ (&#39;usually&#39;, 529),
+ (&#39;michael&#39;, 528),
+ (&#39;feeling&#39;, 526),
+ (&#39;huge&#39;, 523),
+ (&#39;sequel&#39;, 522),
+ (&#39;soon&#39;, 521),
+ (&#39;exactly&#39;, 520),
+ (&#39;past&#39;, 519),
+ (&#39;turned&#39;, 518),
+ (&#39;police&#39;, 518),
+ (&#39;tried&#39;, 515),
+ (&#39;middle&#39;, 513),
+ (&#39;talent&#39;, 513),
+ (&#39;genre&#39;, 512),
+ (&#39;zombie&#39;, 510),
+ (&#39;ends&#39;, 509),
+ (&#39;history&#39;, 509),
+ (&#39;straight&#39;, 503),
+ (&#39;opening&#39;, 501),
+ (&#39;serious&#39;, 501),
+ (&#39;coming&#39;, 501),
+ (&#39;moment&#39;, 500),
+ (&#39;lives&#39;, 499),
+ (&#39;sad&#39;, 499),
+ (&#39;dialog&#39;, 498),
+ (&#39;particularly&#39;, 498),
+ (&#39;editing&#39;, 493),
+ (&#39;clearly&#39;, 492),
+ (&#39;beyond&#39;, 491),
+ (&#39;earth&#39;, 491),
+ (&#39;taken&#39;, 490),
+ (&#39;cool&#39;, 490),
+ (&#39;level&#39;, 489),
+ (&#39;dumb&#39;, 489),
+ (&#39;okay&#39;, 488),
+ (&#39;major&#39;, 487),
+ (&#39;fast&#39;, 485),
+ (&#39;premise&#39;, 485),
+ (&#39;joke&#39;, 484),
+ (&#39;stories&#39;, 484),
+ (&#39;wasted&#39;, 483),
+ (&#39;minute&#39;, 483),
+ (&#39;across&#39;, 482),
+ (&#39;mostly&#39;, 482),
+ (&#39;rent&#39;, 482),
+ (&#39;late&#39;, 481),
+ (&#39;falls&#39;, 481),
+ (&#39;fails&#39;, 481),
+ (&#39;mention&#39;, 478),
+ (&#39;theater&#39;, 475),
+ (&#39;stay&#39;, 472),
+ (&#39;sometimes&#39;, 472),
+ (&#39;hit&#39;, 468),
+ (&#39;talk&#39;, 467),
+ (&#39;fine&#39;, 467),
+ (&#39;die&#39;, 466),
+ (&#39;storyline&#39;, 465),
+ (&#39;pointless&#39;, 465),
+ (&#39;taking&#39;, 464),
+ (&#39;order&#39;, 462),
+ (&#39;brother&#39;, 461),
+ (&#39;whatever&#39;, 460),
+ (&#39;told&#39;, 460),
+ (&#39;wish&#39;, 458),
+ (&#39;room&#39;, 456),
+ (&#39;career&#39;, 455),
+ (&#39;appears&#39;, 455),
+ (&#39;write&#39;, 455),
+ (&#39;known&#39;, 454),
+ (&#39;husband&#39;, 454),
+ (&#39;living&#39;, 451),
+ (&#39;sit&#39;, 450),
+ (&#39;ten&#39;, 450),
+ (&#39;words&#39;, 449),
+ (&#39;monster&#39;, 448),
+ (&#39;chance&#39;, 448),
+ (&#39;hate&#39;, 444),
+ (&#39;novel&#39;, 444),
+ (&#39;add&#39;, 443),
+ (&#39;english&#39;, 443),
+ (&#39;somehow&#39;, 441),
+ (&#39;strange&#39;, 440),
+ (&#39;imdb&#39;, 438),
+ (&#39;actual&#39;, 438),
+ (&#39;total&#39;, 437),
+ (&#39;material&#39;, 437),
+ (&#39;killing&#39;, 437),
+ (&#39;ones&#39;, 437),
+ (&#39;knew&#39;, 436),
+ (&#39;king&#39;, 434),
+ (&#39;number&#39;, 434),
+ (&#39;using&#39;, 433),
+ (&#39;lee&#39;, 431),
+ (&#39;power&#39;, 431),
+ (&#39;shown&#39;, 431),
+ (&#39;works&#39;, 431),
+ (&#39;giving&#39;, 431),
+ (&#39;points&#39;, 430),
+ (&#39;possibly&#39;, 430),
+ (&#39;kept&#39;, 430),
+ (&#39;four&#39;, 429),
+ (&#39;local&#39;, 427),
+ (&#39;usual&#39;, 426),
+ (&#39;including&#39;, 425),
+ (&#39;problems&#39;, 424),
+ (&#39;ago&#39;, 424),
+ (&#39;opinion&#39;, 424),
+ (&#39;nudity&#39;, 423),
+ (&#39;age&#39;, 422),
+ (&#39;due&#39;, 421),
+ (&#39;roles&#39;, 420),
+ (&#39;writers&#39;, 419),
+ (&#39;decided&#39;, 419),
+ (&#39;near&#39;, 418),
+ (&#39;flat&#39;, 418),
+ (&#39;easily&#39;, 418),
+ (&#39;murder&#39;, 417),
+ (&#39;experience&#39;, 417),
+ (&#39;reviews&#39;, 416),
+ (&#39;imagine&#39;, 415),
+ (&#39;feels&#39;, 413),
+ (&#39;plain&#39;, 411),
+ (&#39;somewhat&#39;, 411),
+ (&#39;class&#39;, 410),
+ (&#39;score&#39;, 410),
+ (&#39;song&#39;, 409),
+ (&#39;bring&#39;, 409),
+ (&#39;whether&#39;, 409),
+ (&#39;otherwise&#39;, 408),
+ (&#39;whose&#39;, 408),
+ (&#39;average&#39;, 408),
+ (&#39;pathetic&#39;, 407),
+ (&#39;nearly&#39;, 407),
+ (&#39;knows&#39;, 407),
+ (&#39;zombies&#39;, 407),
+ (&#39;cinematography&#39;, 406),
+ (&#39;cheesy&#39;, 406),
+ (&#39;upon&#39;, 406),
+ (&#39;city&#39;, 405),
+ (&#39;space&#39;, 405),
+ (&#39;credits&#39;, 404),
+ (&#39;james&#39;, 403),
+ (&#39;lots&#39;, 403),
+ (&#39;change&#39;, 403),
+ (&#39;entertainment&#39;, 402),
+ (&#39;nor&#39;, 402),
+ (&#39;wait&#39;, 401),
+ (&#39;released&#39;, 400),
+ (&#39;needs&#39;, 399),
+ (&#39;shame&#39;, 398),
+ (&#39;attention&#39;, 396),
+ (&#39;comments&#39;, 394),
+ (&#39;bored&#39;, 393),
+ (&#39;free&#39;, 393),
+ (&#39;lady&#39;, 393),
+ (&#39;expected&#39;, 392),
+ (&#39;needed&#39;, 392),
+ (&#39;clear&#39;, 392),
+ (&#39;view&#39;, 391),
+ (&#39;development&#39;, 390),
+ (&#39;check&#39;, 390),
+ (&#39;doubt&#39;, 390),
+ (&#39;figure&#39;, 389),
+ (&#39;mystery&#39;, 389),
+ (&#39;excellent&#39;, 388),
+ (&#39;garbage&#39;, 388),
+ (&#39;sequence&#39;, 386),
+ (&#39;television&#39;, 386),
+ (&#39;o&#39;, 385),
+ (&#39;sets&#39;, 385),
+ (&#39;laughable&#39;, 384),
+ (&#39;potential&#39;, 384),
+ (&#39;robert&#39;, 382),
+ (&#39;light&#39;, 382),
+ (&#39;country&#39;, 382),
+ (&#39;documentary&#39;, 382),
+ (&#39;reality&#39;, 382),
+ (&#39;general&#39;, 381),
+ (&#39;ask&#39;, 381),
+ (&#39;comic&#39;, 380),
+ (&#39;fall&#39;, 380),
+ (&#39;begin&#39;, 380),
+ (&#39;footage&#39;, 379),
+ (&#39;stand&#39;, 379),
+ (&#39;forced&#39;, 379),
+ (&#39;trash&#39;, 379),
+ (&#39;remake&#39;, 379),
+ (&#39;thriller&#39;, 378),
+ (&#39;songs&#39;, 378),
+ (&#39;gay&#39;, 377),
+ (&#39;within&#39;, 377),
+ (&#39;hardly&#39;, 376),
+ (&#39;above&#39;, 375),
+ (&#39;gone&#39;, 375),
+ (&#39;george&#39;, 374),
+ (&#39;means&#39;, 373),
+ (&#39;sounds&#39;, 373),
+ (&#39;directing&#39;, 372),
+ (&#39;move&#39;, 372),
+ (&#39;david&#39;, 372),
+ (&#39;buy&#39;, 372),
+ (&#39;rock&#39;, 371),
+ (&#39;forward&#39;, 371),
+ (&#39;important&#39;, 371),
+ (&#39;hot&#39;, 370),
+ (&#39;haven&#39;, 370),
+ (&#39;filmed&#39;, 370),
+ (&#39;british&#39;, 370),
+ (&#39;heart&#39;, 369),
+ (&#39;reading&#39;, 369),
+ (&#39;fake&#39;, 369),
+ (&#39;incredibly&#39;, 368),
+ (&#39;weird&#39;, 368),
+ (&#39;hear&#39;, 368),
+ (&#39;enjoyed&#39;, 367),
+ (&#39;hilarious&#39;, 367),
+ (&#39;cop&#39;, 367),
+ (&#39;musical&#39;, 367),
+ (&#39;message&#39;, 366),
+ (&#39;happy&#39;, 366),
+ (&#39;pay&#39;, 366),
+ (&#39;laughs&#39;, 365),
+ (&#39;box&#39;, 365),
+ (&#39;suspense&#39;, 363),
+ (&#39;sadly&#39;, 363),
+ (&#39;eye&#39;, 362),
+ (&#39;third&#39;, 361),
+ (&#39;similar&#39;, 361),
+ (&#39;named&#39;, 361),
+ (&#39;modern&#39;, 360),
+ (&#39;failed&#39;, 359),
+ (&#39;events&#39;, 359),
+ (&#39;forget&#39;, 358),
+ (&#39;question&#39;, 358),
+ (&#39;male&#39;, 357),
+ (&#39;finds&#39;, 357),
+ (&#39;perfect&#39;, 356),
+ (&#39;spent&#39;, 355),
+ (&#39;sister&#39;, 355),
+ (&#39;feature&#39;, 354),
+ (&#39;result&#39;, 354),
+ (&#39;comment&#39;, 353),
+ (&#39;girlfriend&#39;, 353),
+ (&#39;sexual&#39;, 352),
+ (&#39;attempts&#39;, 351),
+ (&#39;neither&#39;, 351),
+ (&#39;richard&#39;, 351),
+ (&#39;screenplay&#39;, 350),
+ (&#39;elements&#39;, 350),
+ (&#39;spoilers&#39;, 349),
+ (&#39;brain&#39;, 348),
+ (&#39;filmmakers&#39;, 348),
+ (&#39;showing&#39;, 348),
+ (&#39;miss&#39;, 347),
+ (&#39;dr&#39;, 347),
+ (&#39;christmas&#39;, 347),
+ (&#39;cover&#39;, 345),
+ (&#39;red&#39;, 344),
+ (&#39;sequences&#39;, 344),
+ (&#39;typical&#39;, 343),
+ (&#39;excuse&#39;, 343),
+ (&#39;crazy&#39;, 342),
+ (&#39;ideas&#39;, 342),
+ (&#39;baby&#39;, 342),
+ (&#39;loved&#39;, 341),
+ (&#39;meant&#39;, 341),
+ (&#39;worked&#39;, 340),
+ (&#39;fire&#39;, 340),
+ (&#39;unbelievable&#39;, 339),
+ (&#39;follow&#39;, 339),
+ (&#39;theme&#39;, 337),
+ (&#39;barely&#39;, 336),
+ (&#39;producers&#39;, 336),
+ (&#39;twist&#39;, 336),
+ (&#39;plus&#39;, 336),
+ (&#39;appear&#39;, 336),
+ (&#39;directors&#39;, 335),
+ (&#39;team&#39;, 335),
+ (&#39;viewers&#39;, 333),
+ (&#39;leads&#39;, 332),
+ (&#39;tom&#39;, 332),
+ (&#39;slasher&#39;, 332),
+ (&#39;wrote&#39;, 331),
+ (&#39;villain&#39;, 331),
+ (&#39;gun&#39;, 331),
+ (&#39;working&#39;, 331),
+ (&#39;island&#39;, 330),
+ (&#39;strong&#39;, 330),
+ (&#39;open&#39;, 330),
+ (&#39;realize&#39;, 330),
+ (&#39;positive&#39;, 329),
+ (&#39;disappointing&#39;, 329),
+ (&#39;yeah&#39;, 329),
+ (&#39;quickly&#39;, 329),
+ (&#39;weren&#39;, 328),
+ (&#39;release&#39;, 328),
+ (&#39;simple&#39;, 328),
+ (&#39;honestly&#39;, 328),
+ (&#39;eventually&#39;, 327),
+ (&#39;period&#39;, 327),
+ (&#39;tells&#39;, 327),
+ (&#39;kills&#39;, 327),
+ (&#39;doctor&#39;, 327),
+ (&#39;nowhere&#39;, 326),
+ (&#39;list&#39;, 326),
+ (&#39;acted&#39;, 326),
+ (&#39;herself&#39;, 326),
+ (&#39;dog&#39;, 326),
+ (&#39;walk&#39;, 325),
+ (&#39;air&#39;, 324),
+ (&#39;apart&#39;, 324),
+ (&#39;makers&#39;, 323),
+ (&#39;subject&#39;, 323),
+ (&#39;learn&#39;, 322),
+ (&#39;fi&#39;, 322),
+ (&#39;sci&#39;, 319),
+ (&#39;bother&#39;, 319),
+ (&#39;admit&#39;, 319),
+ (&#39;jack&#39;, 318),
+ (&#39;disappointment&#39;, 318),
+ (&#39;hands&#39;, 318),
+ (&#39;note&#39;, 318),
+ (&#39;certain&#39;, 317),
+ (&#39;e&#39;, 317),
+ (&#39;value&#39;, 317),
+ (&#39;casting&#39;, 317),
+ (&#39;grade&#39;, 316),
+ (&#39;peter&#39;, 316),
+ (&#39;suddenly&#39;, 315),
+ (&#39;missing&#39;, 315),
+ (&#39;form&#39;, 313),
+ (&#39;stick&#39;, 313),
+ (&#39;previous&#39;, 313),
+ (&#39;break&#39;, 313),
+ (&#39;soundtrack&#39;, 312),
+ (&#39;surprised&#39;, 311),
+ (&#39;front&#39;, 311),
+ (&#39;expecting&#39;, 311),
+ (&#39;parents&#39;, 310),
+ (&#39;surprise&#39;, 310),
+ (&#39;relationship&#39;, 310),
+ (&#39;shoot&#39;, 309),
+ (&#39;today&#39;, 309),
+ (&#39;painful&#39;, 308),
+ (&#39;ways&#39;, 308),
+ (&#39;leaves&#39;, 308),
+ (&#39;ended&#39;, 308),
+ (&#39;creepy&#39;, 308),
+ (&#39;concept&#39;, 308),
+ (&#39;somewhere&#39;, 308),
+ (&#39;vampire&#39;, 308),
+ (&#39;spend&#39;, 307),
+ (&#39;th&#39;, 307),
+ (&#39;future&#39;, 306),
+ (&#39;difficult&#39;, 306),
+ (&#39;effect&#39;, 306),
+ (&#39;fighting&#39;, 306),
+ (&#39;street&#39;, 306),
+ (&#39;c&#39;, 305),
+ (&#39;america&#39;, 305),
+ (&#39;accent&#39;, 304),
+ (&#39;truth&#39;, 302),
+ (&#39;project&#39;, 302),
+ (&#39;joe&#39;, 301),
+ (&#39;f&#39;, 301),
+ (&#39;deal&#39;, 301),
+ (&#39;indeed&#39;, 301),
+ (&#39;biggest&#39;, 300),
+ (&#39;rate&#39;, 300),
+ (&#39;paul&#39;, 299),
+ (&#39;japanese&#39;, 299),
+ (&#39;utterly&#39;, 298),
+ (&#39;begins&#39;, 298),
+ (&#39;redeeming&#39;, 298),
+ (&#39;college&#39;, 298),
+ (&#39;york&#39;, 297),
+ (&#39;fairly&#39;, 297),
+ (&#39;disney&#39;, 297),
+ (&#39;crew&#39;, 296),
+ (&#39;create&#39;, 296),
+ (&#39;cartoon&#39;, 296),
+ (&#39;revenge&#39;, 296),
+ (&#39;co&#39;, 295),
+ (&#39;outside&#39;, 295),
+ (&#39;computer&#39;, 295),
+ (&#39;interested&#39;, 295),
+ (&#39;stage&#39;, 295),
+ (&#39;considering&#39;, 294),
+ (&#39;speak&#39;, 294),
+ (&#39;among&#39;, 294),
+ (&#39;towards&#39;, 293),
+ (&#39;channel&#39;, 293),
+ (&#39;sick&#39;, 293),
+ (&#39;talented&#39;, 292),
+ (&#39;cause&#39;, 292),
+ (&#39;particular&#39;, 292),
+ (&#39;van&#39;, 292),
+ (&#39;hair&#39;, 292),
+ (&#39;bottom&#39;, 291),
+ (&#39;reasons&#39;, 291),
+ (&#39;mediocre&#39;, 290),
+ (&#39;cat&#39;, 290),
+ (&#39;telling&#39;, 290),
+ (&#39;supporting&#39;, 289),
+ (&#39;store&#39;, 289),
+ (&#39;hoping&#39;, 288),
+ (&#39;waiting&#39;, 288),
+ ...]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Instead of looking at the counts of the words, lets now instead look at the ratios between words. Looking at how often words occur, either positive or negative, does not really give us what we are looking for. e.g. you can see there are a lot of common words between both the positive and negative counters. Instead, by looking at a raio, we will be looking at the words that are found in positive reviews over negative, and vice versa.</p>
+<p>This will basically tell us how many more times a word is seen in positive reviews than in the negatives. e.g. we can imagine that positive reviews use the word “love” more, hence the ratio should be larger. Hence:</p>
+<ul class="simple">
+<li><p>Positive words will have a large ratio - bigger than 1</p></li>
+<li><p>Negative words will have a smaller ratio - less than 1</p></li>
+<li><p>words that are neither positive or negative, but neutral, will be centered around 0</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">positive_to_negative_ratio</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">total_words_counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">()):</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">positive_words_counter</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">negative_words_counter</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># +1 so we dont divide by 0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, lets take a look at some words…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;positive:negative ratio for the word and: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="s2">&quot;and&quot;</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;positive:negative ratio for the word good: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="s2">&quot;best&quot;</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;positive:negative ratio for the word bad: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="s2">&quot;bad&quot;</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>positive:negative ratio for the word and: 1.21
+positive:negative ratio for the word good: 2.06
+positive:negative ratio for the word bad: 0.26
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, but is a score of 2 twice as good as other scores? With the ratios as they are now, it will be difficult to actually compare the scores. So instead, we will do what every computer scientists loves to do, which is to log the numbers.</p>
+<p>To find out more about why computer scientists love log, feel free to watch the series by Killian Weiberger on Machine Learning <a class="reference external" href="https://www.youtube.com/watch?v=MrLPzBxG95I&amp;list=PLl8OlHZGYOQ7bkVbuRthEsaLr7bONzbXS">here</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">positive_to_negative_ratio</span><span class="o">.</span><span class="n">most_common</span><span class="p">():</span>
+    <span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, lets take a look at the log(words)…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;positive:negative ratio for the word and: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="s2">&quot;and&quot;</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;positive:negative ratio for the word good: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="s2">&quot;best&quot;</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;positive:negative ratio for the word bad: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="p">[</span><span class="s2">&quot;bad&quot;</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>positive:negative ratio for the word and: 0.19
+positive:negative ratio for the word good: 0.72
+positive:negative ratio for the word bad: -1.36
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can see now that:</p>
+<ul class="simple">
+<li><p>positive words are close to +1</p></li>
+<li><p>negative words are close to -1</p></li>
+<li><p>neutral words are centered around 0</p></li>
+</ul>
+<p>Now, to close our hypothesis section where we wanted to draw a hypothesis from the data, we will take a peek at our ratio data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">positive_to_negative_ratio</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;edie&#39;, 4.6913478822291435),
+ (&#39;paulie&#39;, 4.07753744390572),
+ (&#39;felix&#39;, 3.152736022363656),
+ (&#39;polanski&#39;, 2.8233610476132043),
+ (&#39;matthau&#39;, 2.80672172860924),
+ (&#39;victoria&#39;, 2.681021528714291),
+ (&#39;mildred&#39;, 2.6026896854443837),
+ (&#39;gandhi&#39;, 2.538973871058276),
+ (&#39;flawless&#39;, 2.451005098112319),
+ (&#39;superbly&#39;, 2.26002547857525),
+ (&#39;perfection&#39;, 2.159484249353372),
+ (&#39;astaire&#39;, 2.1400661634962708),
+ (&#39;captures&#39;, 2.038619547159581),
+ (&#39;voight&#39;, 2.030170492673053),
+ (&#39;wonderfully&#39;, 2.0218960560332353),
+ (&#39;powell&#39;, 1.978345424808467),
+ (&#39;brosnan&#39;, 1.9547990964725592),
+ (&#39;lily&#39;, 1.9203768470501485),
+ (&#39;bakshi&#39;, 1.9029851043382795),
+ (&#39;lincoln&#39;, 1.9014583864844796)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we expected, some positive words like <code class="docutils literal notranslate"><span class="pre">flawless</span></code> and <code class="docutils literal notranslate"><span class="pre">perfection</span></code> have high scores….but also <code class="docutils literal notranslate"><span class="pre">lincoln</span></code>. Interesting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">positive_to_negative_ratio</span><span class="o">.</span><span class="n">most_common</span><span class="p">()))[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;boll&#39;, -4.969813299576001),
+ (&#39;uwe&#39;, -4.624972813284271),
+ (&#39;seagal&#39;, -3.644143560272545),
+ (&#39;unwatchable&#39;, -3.258096538021482),
+ (&#39;stinker&#39;, -3.2088254890146994),
+ (&#39;mst&#39;, -2.9502698994772336),
+ (&#39;incoherent&#39;, -2.9368917735310576),
+ (&#39;unfunny&#39;, -2.6922395950755678),
+ (&#39;waste&#39;, -2.6193845640165536),
+ (&#39;blah&#39;, -2.5704288232261625),
+ (&#39;horrid&#39;, -2.4849066497880004),
+ (&#39;pointless&#39;, -2.4553061800117097),
+ (&#39;atrocious&#39;, -2.4259083090260445),
+ (&#39;redeeming&#39;, -2.3682390632154826),
+ (&#39;prom&#39;, -2.3608540011180215),
+ (&#39;drivel&#39;, -2.3470368555648795),
+ (&#39;lousy&#39;, -2.307572634505085),
+ (&#39;worst&#39;, -2.286987896180378),
+ (&#39;laughable&#39;, -2.264363880173848),
+ (&#39;awful&#39;, -2.227194247027435)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are some funny negative words, including <code class="docutils literal notranslate"><span class="pre">lousy</span></code> and <code class="docutils literal notranslate"><span class="pre">unwatcheable</span></code>. But again, some interesting words like <code class="docutils literal notranslate"><span class="pre">prom</span></code>.</p>
+</div>
+<div class="section" id="transforming-words-into-numbers">
+<h2><span class="section-number">3.2. </span>Transforming words into numbers<a class="headerlink" href="#transforming-words-into-numbers" title="Permalink to this headline">¶</a></h2>
+<p>we now need to prerpare our words so that we can feed them into our neural network. In order to do that, we want to transform them so we can do the maths of neural networks.</p>
+<p>What we want to do for our network, is build a dictionary. With this dictionary, we will count each word in our input review, and feed that into the network.</p>
+<p>As we have already built a Count object that has every word possible from our training data, we are able to now compare each single review from our dataset, and see how often each word occurs per review. This will allow us to feed our reviews into the network whilst maintaining consistency between inputs.</p>
+<p>We will begin by building a <code class="docutils literal notranslate"><span class="pre">vocab</span></code>, a set that contains all the words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vocab</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">total_words_counter</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vocab is s Set, similar to the mathematical set. This means that it only has each word appearing only once.</p>
+<p>Now, lets take a look at how our Neural network will look.</p>
+<p><img alt="image of our neural network" src="../_images/sentiment_network.png" /></p>
+<p>You can see that our NN will have:</p>
+<ul class="simple">
+<li><p>one input layer:</p>
+<ul>
+<li><p>This will be the Vocab</p></li>
+<li><p>we will represent this as a np array</p></li>
+</ul>
+</li>
+<li><p>one hidden layer</p></li>
+<li><p>one output layer that has one output neuron</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>lets take a look at the first layer…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_0</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 74074)
+</pre></div>
+</div>
+</div>
+</div>
+<p>This first layer now has a neuron/input per word from our vocab. With the input being a count of how many times the word occurs in the review. However, to pass words from a review into this first layer, we need to be able to build a way that will allow us to feed a new review in with the words organised the same way as the first layer in our network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_to_index_translator</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># lets map each word in our vocab to an index, and capture that as a dictionary</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocab</span><span class="p">):</span>
+    <span class="n">word_to_index_translator</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+
+<span class="c1"># lets temporarily use a Counter object to look at the first few rows in our dictionary</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">word_to_index_translator</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;shatters&#39;, 74073),
+ (&#39;fulltime&#39;, 74072),
+ (&#39;kinks&#39;, 74071),
+ (&#39;jeered&#39;, 74070),
+ (&#39;townsmen&#39;, 74069)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>now, lets build a function that can take a new review, and spit out a vector that matches the input layer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">input_for_input_layer</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; New input layer, layer_0, for our network to train on.</span>
+
+<span class="sd">    layer_0 represents how many times a word occurs in a review.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        review (str) : a review for a movie</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">layer_0</span>
+    <span class="c1"># clear out previous layer 0</span>
+    <span class="n">layer_0</span> <span class="o">*=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">review</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+        <span class="c1"># find index location of the word from our vocab</span>
+        <span class="n">index_of_word</span> <span class="o">=</span> <span class="n">word_to_index_translator</span><span class="p">[</span><span class="n">word</span><span class="p">]</span>
+        <span class="c1"># add it to our layer 0</span>
+        <span class="n">layer_0</span><span class="p">[:,</span> <span class="n">index_of_word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets test this by feeding it a review.
+Before we test it, lets look at layer_0</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0., 0., 0., ..., 0., 0., 0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">input_for_input_layer</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="mi">200</span><span class="p">])</span>
+<span class="n">layer_0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[34.,  0.,  0., ...,  0.,  0.,  0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Great, it has updated layer_0.</p>
+<p>Now, we will build a function that can take a label (e.g. POSITIVE or NEGATIVE), and return either 1 or 0. This is needed as our network needs to be built ontop of numbers, and not strings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">translate_label</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Converts label to 0 or 1.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        label (str) : POSITIVE or NEGATIVE label for a review</span>
+<span class="sd">    RETURNS:</span>
+<span class="sd">        0 : if negative</span>
+<span class="sd">        1 : if positive</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;POSITIVE&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>again, lets test this by running a label into our function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;testing +ve label: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;This is the output from our function: </span><span class="si">{</span><span class="n">translate_label</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="mi">200</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">testing -ve label: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;This is the output from our function: </span><span class="si">{</span><span class="n">translate_label</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>testing +ve label: POSITIVE
+This is the output from our function: 1
+
+testing -ve label: NEGATIVE
+This is the output from our function: 0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Great, so it works.</p>
+<p>Now it is finally time to build our Neural Network!</p>
+<p>We will:</p>
+<ul class="simple">
+<li><p>build a basic neural network that has an input layer, hidden layer and an output layer</p></li>
+<li><p>we will not be adding non-linearity in our hidden layer</p></li>
+<li><p>we will use the same functions we defined above, to build up our training data set</p></li>
+<li><p>we will create a vocab from our training data</p></li>
+<li><p>we will train over the entire corpus</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sentiment_network</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">sentiment_network</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">25</span><span class="o">-</span><span class="n">bbabcd599724</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">sentiment_network</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">importlib</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">sentiment_network</span><span class="p">)</span>
+
+<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">development</span><span class="o">/</span><span class="n">abdis</span><span class="o">-</span><span class="n">ml</span><span class="o">-</span><span class="n">handbook</span><span class="o">/</span><span class="n">abdis_machine_learning_handbook</span><span class="o">/</span><span class="n">abdis_machine_learning_handbook</span><span class="o">/</span><span class="mi">4_1</span><span class="n">_dl_basics_implementations</span><span class="o">/</span><span class="n">sentiment_network</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">sys</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="k">class</span> <span class="nc">SentimentNetwork</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tqdm&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlp</span> <span class="o">=</span> <span class="n">sentiment_network</span><span class="o">.</span><span class="n">SentimentNetwork</span><span class="p">(</span><span class="n">reviews</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">],</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">],</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>processing input...
+100%|██████████| 72810/72810 [00:00&lt;00:00, 1627031.34it/s]
+100%|██████████| 2/2 [00:00&lt;00:00, 8516.35it/s]
+
+Created a Neural Network with:
+- 72810 input nodes
+- 10 hidden nodes
+- 1 output nodes
+
+Our weights have the following shapes:
+input to hidden: (72810, 10)
+hidden to output: (10, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlp</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="o">-</span><span class="mi">1000</span><span class="p">:],</span><span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1000</span><span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Progress:99.9% Speed(reviews/sec):1040. #Correct:500 #Tested:1000 Testing Accuracy:50.0%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlp</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">reviews</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">],</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Progress:0.0% Speed(reviews/sec):0.0 #Correct:1 #Trained:1 Training Accuracy:100.%
+Progress:10.4% Speed(reviews/sec):425.8 #Correct:1251 #Trained:2501 Training Accuracy:50.0%
+Progress:20.8% Speed(reviews/sec):425.3 #Correct:2501 #Trained:5001 Training Accuracy:50.0%
+Progress:31.2% Speed(reviews/sec):413.7 #Correct:3751 #Trained:7501 Training Accuracy:50.0%
+Progress:41.6% Speed(reviews/sec):413.7 #Correct:5001 #Trained:10001 Training Accuracy:50.0%
+Progress:52.0% Speed(reviews/sec):416.6 #Correct:6251 #Trained:12501 Training Accuracy:50.0%
+Progress:62.5% Speed(reviews/sec):417.6 #Correct:7501 #Trained:15001 Training Accuracy:50.0%
+Progress:72.9% Speed(reviews/sec):417.6 #Correct:8751 #Trained:17501 Training Accuracy:50.0%
+Progress:83.3% Speed(reviews/sec):417.9 #Correct:10001 #Trained:20001 Training Accuracy:50.0%
+Progress:93.7% Speed(reviews/sec):417.7 #Correct:11251 #Trained:22501 Training Accuracy:50.0%
+Progress:99.9% Speed(reviews/sec):418.0 #Correct:12000 #Trained:24000 Training Accuracy:50.0%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlp2</span> <span class="o">=</span> <span class="n">sentiment_network</span><span class="o">.</span><span class="n">SentimentNetwork</span><span class="p">(</span><span class="n">reviews</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">],</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">],</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">mlp2</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">reviews</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">],</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1000</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>processing input...
+100%|██████████| 72810/72810 [00:00&lt;00:00, 1624391.75it/s]
+100%|██████████| 2/2 [00:00&lt;00:00, 8097.11it/s]
+
+
+Created a Neural Network with:
+- 72810 input nodes
+- 10 hidden nodes
+- 1 output nodes
+
+Our weights have the following shapes:
+input to hidden: (72810, 10)
+hidden to output: (10, 1)
+
+Progress:0.0% Speed(reviews/sec):0.0 #Correct:1 #Trained:1 Training Accuracy:100.%
+Progress:10.4% Speed(reviews/sec):334.9 #Correct:1256 #Trained:2501 Training Accuracy:50.2%
+Progress:20.8% Speed(reviews/sec):356.6 #Correct:2661 #Trained:5001 Training Accuracy:53.2%
+Progress:31.2% Speed(reviews/sec):363.2 #Correct:4056 #Trained:7501 Training Accuracy:54.0%
+Progress:41.6% Speed(reviews/sec):364.7 #Correct:5585 #Trained:10001 Training Accuracy:55.8%
+Progress:52.0% Speed(reviews/sec):364.2 #Correct:7156 #Trained:12501 Training Accuracy:57.2%
+Progress:62.5% Speed(reviews/sec):363.7 #Correct:8765 #Trained:15001 Training Accuracy:58.4%
+Progress:72.9% Speed(reviews/sec):362.6 #Correct:10429 #Trained:17501 Training Accuracy:59.5%
+Progress:83.3% Speed(reviews/sec):359.5 #Correct:12135 #Trained:20001 Training Accuracy:60.6%
+Progress:93.7% Speed(reviews/sec):357.1 #Correct:13828 #Trained:22501 Training Accuracy:61.4%
+Progress:99.9% Speed(reviews/sec):356.4 #Correct:14874 #Trained:24000 Training Accuracy:61.9%
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./4_1_dl_basics_implementations"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../4_dl_basics/rnns.html" title="previous page"><span class="section-number">2. </span>RNN</a>
+    <a class='right-next' id="next-link" href="diabetes_predictor.html" title="next page"><span class="section-number">4. </span>Building a terrible diabetes predictor from scratch</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Abdi Timer<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

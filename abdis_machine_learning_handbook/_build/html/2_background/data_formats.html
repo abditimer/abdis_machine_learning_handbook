@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3. Data - the different types &#8212; abdis-machine-learning-handbook</title>
+    <title>4. Data - the different types &#8212; abdis-machine-learning-handbook</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -55,8 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="intro_stats.html" />
-    <link rel="prev" title="2. Tools Background" href="tools_background.html" />
+    <link rel="next" title="5. Intro to Stats" href="intro_stats.html" />
+    <link rel="prev" title="3. What is Markdown?" href="markdown.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -92,7 +94,7 @@
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to your Jupyter Book
+   Welcome to Abdis Machine Learning Handbook
   </a>
  </li>
 </ul>
@@ -124,9 +126,24 @@
    2. Tools Background
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   3. Data - the different types
+   4. Data - the different types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_stats.html">
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_linear_algebra.html">
+   6. Intro to Linear Algebra
   </a>
  </li>
 </ul>
@@ -144,6 +161,60 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
    2. Overview of Machine Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/basics_of_dl.html">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/sentiment_analysis.html">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html#examples">
+   3. Examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   4. PySpark refresher
   </a>
  </li>
 </ul>
@@ -232,29 +303,29 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#types-of-data">
-   3.1. Types of data
+   4.1. Types of data
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#structured-data">
-     3.1.1. Structured Data
+     4.1.1. Structured Data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#semi-structured-data">
-     3.1.2. Semi-structured Data
+     4.1.2. Semi-structured Data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#unstructured-data">
-     3.1.3. Unstructured data
+     4.1.3. Unstructured data
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#transactions">
-   3.2. Transactions
+   4.2. Transactions
   </a>
  </li>
 </ul>
@@ -269,18 +340,18 @@
               <div>
                 
   <div class="section" id="data-the-different-types">
-<h1><span class="section-number">3. </span>Data - the different types<a class="headerlink" href="#data-the-different-types" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">4. </span>Data - the different types<a class="headerlink" href="#data-the-different-types" title="Permalink to this headline">¶</a></h1>
 <p>Data comes in different types, depending on your use case. For example, you may be analysing financial data relating to stocks, or looking at pictures your users have shared online on your app. No matter the type of data, it is your job, as a Machine Learning Engineer, to support the Data Engineers and Database Admins in your oganisation, to extract as much value out of this data as possible. This may be done by developing products, or supporting data scientists, analysts or other colleagues in the business.</p>
 <div class="section" id="types-of-data">
-<h2><span class="section-number">3.1. </span>Types of data<a class="headerlink" href="#types-of-data" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.1. </span>Types of data<a class="headerlink" href="#types-of-data" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="structured-data">
-<h3><span class="section-number">3.1.1. </span>Structured Data<a class="headerlink" href="#structured-data" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.1.1. </span>Structured Data<a class="headerlink" href="#structured-data" title="Permalink to this headline">¶</a></h3>
 <p>Structured data is data that has a relationship, hence is <em>relational</em>. This means it has a strict schema which defines the structure (properties). Below, you can see an example of a table:</p>
 <p><img alt="structured table image" src="https://lh3.googleusercontent.com/proxy/rQvqYgcqXK0XwSOTJqvniRagp-NHZY1REdVeMREcOANpgLie3jxIlst49DYBDGFmCzOVn_UfmWNO7evAii1TxR4Krq9PtcT7PSIfGrs" /></p>
 <p>Advantages of this is that it enables the data to have a structure that can be searched. However, this means that it may be difficult to change the data. For example, what if you have clients that share data with you in a variety of different ways? Having a rigid structure may mean you are unflexible to a change in demand.</p>
 </div>
 <div class="section" id="semi-structured-data">
-<h3><span class="section-number">3.1.2. </span>Semi-structured Data<a class="headerlink" href="#semi-structured-data" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.1.2. </span>Semi-structured Data<a class="headerlink" href="#semi-structured-data" title="Permalink to this headline">¶</a></h3>
 <p>This sits between structured and unstructured data. This data uses tags to enable grouping/organisation of heirarchical data. It is where some structure exists.</p>
 <p>This also is refered to as non-relational/NoSQL data. The structure will be described by a serialisation language - this can be used to write data, that is in memory, to something (an action e.g. read). Serialisation language examples include XML or JSON.</p>
 <p>example of JSON:</p>
@@ -293,12 +364,12 @@
 </div>
 </div>
 <div class="section" id="unstructured-data">
-<h3><span class="section-number">3.1.3. </span>Unstructured data<a class="headerlink" href="#unstructured-data" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.1.3. </span>Unstructured data<a class="headerlink" href="#unstructured-data" title="Permalink to this headline">¶</a></h3>
 <p>There is no structure - no seriously, there is some, but it can be varied. A good example here is an image, word document or even a song/voicenote.</p>
 </div>
 </div>
 <div class="section" id="transactions">
-<h2><span class="section-number">3.2. </span>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.2. </span>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h2>
 <p>Wait, but what about if we are dealing with data that may be connected? E.g. if our picture is of a loan application that tells us about our customer?</p>
 <p>In this case, we are able to group many smaller tasks/operations in a transaction. The benefit a transaction provides, is that if one trigger/event changes one piece of data, then the rest of the data is also changed. Also, this means if it fails, then it is able to roll back the entire series of operations.</p>
 <p>E.g. if you look after a platform that looks after car insurance quotes, you can make sure with a transaction that an application is not completed until after the customer is underwritten.</p>
@@ -365,8 +436,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="tools_background.html" title="previous page"><span class="section-number">2. </span>Tools Background</a>
-    <a class='right-next' id="next-link" href="intro_stats.html" title="next page">&lt;no title&gt;</a>
+    <a class='left-prev' id="prev-link" href="markdown.html" title="previous page"><span class="section-number">3. </span>What is Markdown?</a>
+    <a class='right-next' id="next-link" href="intro_stats.html" title="next page"><span class="section-number">5. </span>Intro to Stats</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -1,0 +1,945 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1. Basics of Deep Learning &#8212; abdis-machine-learning-handbook</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. RNN" href="rnns.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="../3_mle_basics/basics_of_sklearn.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">abdis-machine-learning-handbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to Abdis Machine Learning Handbook
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Overview of the Book
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1_ovw/what_is_mle.html">
+   1. What is Machine Learning Engineering?
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Background topics for ML and DL
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/setup_background.html">
+   1. Setup Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/tools_background.html">
+   2. Tools Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/data_formats.html">
+   4. Data - the different types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/intro_stats.html">
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_background/intro_linear_algebra.html">
+   6. Intro to Linear Algebra
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Machine Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/basics_of_ml.html">
+   1. Basics of Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
+   2. Overview of Machine Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/sentiment_analysis.html">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html#examples">
+   3. Examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   4. PySpark refresher
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Appendix &amp; References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references.html">
+   1. References
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/4_dl_basics/basics_of_dl.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/4_dl_basics/basics_of_dl.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-blocks-of-neural-networks">
+   1.1. Building blocks of Neural Networks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-perceptron">
+     1.1.1. The Perceptron
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-artificial-neural-network">
+     1.1.2. The Artificial neural network
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#but-abdi-what-is-the-goal-of-a-neural-network">
+     1.1.3. But Abdi, what is the goal of a neural network?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-descent-algo">
+   1.2. Gradient Descent Algo
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-gradient-descent-implementation">
+     1.2.1. Simple Gradient Descent Implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-in-depth">
+     1.2.2. More in depth…
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multilayer-nn">
+   1.3. Multilayer NN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#backpropa-what">
+   1.4. Backpropa what?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-it-all-together">
+   1.5. Putting it all together
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="basics-of-deep-learning">
+<h1><span class="section-number">1. </span>Basics of Deep Learning<a class="headerlink" href="#basics-of-deep-learning" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook, we will cover the basics behind Deep Learning. I’m talking about building a brain….</p>
+<p><img alt="gif of some colours" src="https://www.fleetscience.org/sites/default/files/images/neural-mlblog.gif" /></p>
+<p>Only kidding. Deep learning is a fascinating new field that has exploded over the last few years. From being used as facial recognition in apps such as Snapchat or challenger banks, to more advanced use cases such as being used in <a class="reference external" href="https://www.independent.co.uk/life-style/gadgets-and-tech/protein-folding-ai-deepmind-google-cancer-covid-b1764008.html">protein-folding</a>.</p>
+<p>In this notebook we will:</p>
+<ul class="simple">
+<li><p>Explain the building blocks of neural networks</p></li>
+<li><p>Go over some applications of Deep Learning</p></li>
+</ul>
+<div class="section" id="building-blocks-of-neural-networks">
+<h2><span class="section-number">1.1. </span>Building blocks of Neural Networks<a class="headerlink" href="#building-blocks-of-neural-networks" title="Permalink to this headline">¶</a></h2>
+<p>I have no doubt that you have heard/seen how similar neural networks are to….our brains.</p>
+<div class="section" id="the-perceptron">
+<h3><span class="section-number">1.1.1. </span>The Perceptron<a class="headerlink" href="#the-perceptron" title="Permalink to this headline">¶</a></h3>
+<p>The building block of neural networks. The perceptron has a rich history (covered in the background section of this book). The perceptron was created in 1958 by Frank Rosenblatt (I love that name) in Cornell, however, that story is for another day….or section in this book (backgrounds!),</p>
+<p>The perceptron is an algorithm that can learn a binary classifier (e.g. is that a cat or dog?). This is known as a threshold function, which maps an input vector <em>x</em> to an output decision <em><span class="math notranslate nohighlight">\(f(x)\)</span> = output</em>. Here is the formal maths to better explain my verbal fluff:</p>
+<p><span class="math notranslate nohighlight">\( f(x) = { 1 (if: w.x+b &gt; 0), 0 (otherwise) \)</span></p>
+</div>
+<div class="section" id="the-artificial-neural-network">
+<h3><span class="section-number">1.1.2. </span>The Artificial neural network<a class="headerlink" href="#the-artificial-neural-network" title="Permalink to this headline">¶</a></h3>
+<p>Lets take a look at the high level architecture first.</p>
+<p><img alt="3blue1brown neural network gif" src="https://thumbs.gfycat.com/DeadlyDeafeningAtlanticblackgoby-max-1mb.gif" /></p>
+<p>The gif above of a neural network classifying images is one of the best visual ways of understanding how neural networks, work. The neural network is made up of a few key concepts:</p>
+<ul class="simple">
+<li><p>An input: this is the data you pass into the network. For example, data relating to a customer (e.g. height, weight etc) or the pixels of an image</p></li>
+<li><p>An output: this is the prediction of the neural network</p></li>
+<li><p>A hidden layer: more on this later</p></li>
+<li><p>Neuron: the network is made up of neurons, that take an input, and give an output</p></li>
+</ul>
+<p>Now, we have a slightly better understanding of what a neuron is. Lets look at a very simple neuron:</p>
+<p><img alt="simple neural network" src="https://databricks.com/wp-content/uploads/2019/02/neural1.jpg" /></p>
+<p>From the above image, you can clearly see the three components listed above together.</p>
+</div>
+<div class="section" id="but-abdi-what-is-the-goal-of-a-neural-network">
+<h3><span class="section-number">1.1.3. </span>But Abdi, what is the goal of a neural network?<a class="headerlink" href="#but-abdi-what-is-the-goal-of-a-neural-network" title="Permalink to this headline">¶</a></h3>
+<p>Isn’t it obvious? To me, it definitely was not when I first started to learn about neural networks. Neural networks are beautifully complex to understand, but with enough time and lots of youtube videos, you’ll be able to master this topic.</p>
+<p>The goal of a neural network is to make a pretty good guess of something. For example, a phone may have a face unlock feature. The phone probably got you to take a short video/images of yourself in order to set up this security feature, and when it <strong>learned</strong> your face, you were then able to use it to unlock your phone. This is pretty much what we do with neural networks. We teach it by giving it data, and making sure it gets better at making predictions by adjusting the weights between neurons. More on this soon.</p>
+</div>
+</div>
+<div class="section" id="gradient-descent-algo">
+<h2><span class="section-number">1.2. </span>Gradient Descent Algo<a class="headerlink" href="#gradient-descent-algo" title="Permalink to this headline">¶</a></h2>
+<p>One of the best videos on neural networks, by 3Blue1Brown:</p>
+<figure class="video_container">
+  <iframe src="https://www.youtube.com/watch?v=aircAruvnKk" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+<p>His series on Neural networks and Linear algebra are golden sources for learning Deep Learning.</p>
+<div class="section" id="simple-gradient-descent-implementation">
+<h3><span class="section-number">1.2.1. </span>Simple Gradient Descent Implementation<a class="headerlink" href="#simple-gradient-descent-implementation" title="Permalink to this headline">¶</a></h3>
+<p>with the help from our friends over at Udacity, please view below an implementation of the Gradient Descent Algo. This is a very basic neural network that only has its inputs linked directly to the outputs.</p>
+<p>We begin by defining some functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="c1"># We will be using a sigmoid activation function</span>
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># derivation of sigmoid(x) - will be used for backpropagating errors through the network</span>
+<span class="k">def</span> <span class="nf">sigmoid_prime</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We begin by defining a simple neural network:</p>
+<ul class="simple">
+<li><p>two input neurons: x1 and x2</p></li>
+<li><p>one output neuron: y1</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now define the weights, w1 and w2 for the two input neurons; x1 and x2. Also, we define a learning rate that will help us control our gradient descent step</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.4</span><span class="p">])</span>
+<span class="n">learnrate</span> <span class="o">=</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>we now start moving forwards through the network, known as feed forward. We can combine the input vector with the weight vector using numpy’s dot product</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># linear combination</span>
+<span class="c1"># h = x[0]*weights[0] + x[1]*weights[1]</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now apply our non-linearity, this will provide us with our output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># apply non-linearity</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have our prediction, we are able to determine the error of our neural network. Here, we will use the difference between our actual and predicted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">error</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">output</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The goal now is to determine how to change our weights in order to reduce the error above. This is where our good friend gradient descent and the chain rule come into play:</p>
+<ul class="simple">
+<li><p>we determine the derivative of our error with respect to our input weights. Hence:</p></li>
+<li><p>change in weights = <span class="math notranslate nohighlight">\( \frac{d}{dw_{i}} \frac{1}{2}{(y - \hat{y})^2}\)</span></p></li>
+<li><p>simplifies to = learning rate * error term * <span class="math notranslate nohighlight">\( x_{i}\)</span></p></li>
+<li><p>where:</p>
+<ul>
+<li><p>learning rate = <span class="math notranslate nohighlight">\( n \)</span></p></li>
+<li><p>error term = <span class="math notranslate nohighlight">\( (y - \hat{y}) * f'(h) \)</span></p></li>
+<li><p>h =  <span class="math notranslate nohighlight">\( \sum_{i} W_{i} x_{i} \)</span></p></li>
+</ul>
+</li>
+</ul>
+<p>We begin by calculating our f’(h)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># output gradient - derivative of activation function</span>
+<span class="n">output_gradient</span> <span class="o">=</span> <span class="n">sigmoid_prime</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we can calcualte our error term</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">error_trm</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="n">output_gradient</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With that, we can update our weights by combining the error term, learning rate and our x</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#gradient desc step - updating the weights</span>
+<span class="n">dsc_step</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">learnrate</span> <span class="o">*</span> <span class="n">error_trm</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">learnrate</span> <span class="o">*</span> <span class="n">error_trm</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Which leaves…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Actual: </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;NN output: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Weight change: </span><span class="si">{</span><span class="n">dsc_step</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Actual: 0.4
+NN output: 0.8581489350995123
+Error: -0.45814893509951227
+Weight change: [-0.02788508381144715, -0.13942541905723577]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="more-in-depth">
+<h3><span class="section-number">1.2.2. </span>More in depth…<a class="headerlink" href="#more-in-depth" title="Permalink to this headline">¶</a></h3>
+<p>Lets now build our own end to end example. we will begin by creating some fake data, followed by implementing our neural network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">no_data_points</span><span class="p">,</span> <span class="n">no_features</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sig</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Calc for sigmoid&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">no_features</span><span class="o">**.</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">no_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">last_loss</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">for</span> <span class="n">single_data_pass</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1"># Creating a weight change tracker</span>
+    <span class="n">change_in_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x_i</span><span class="p">,</span> <span class="n">y_i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        <span class="n">y_hat</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">y_i</span> <span class="o">-</span> <span class="n">y_hat</span>
+        <span class="c1"># error term = error * f&#39;(h)</span>
+        <span class="n">error_term</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y_hat</span><span class="p">))</span>
+        <span class="c1"># now multiply this by the current x &amp; add to our weight update</span>
+        <span class="n">change_in_weights</span> <span class="o">+=</span> <span class="p">(</span><span class="n">error_term</span> <span class="o">*</span> <span class="n">x_i</span><span class="p">)</span>
+    <span class="c1"># now update the actual weights</span>
+    <span class="n">weights</span> <span class="o">+=</span> <span class="p">(</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">change_in_weights</span> <span class="o">/</span> <span class="n">no_data_points</span><span class="p">)</span>
+
+    <span class="c1"># print the loss every 100th pass</span>
+    <span class="k">if</span> <span class="n">single_data_pass</span> <span class="o">%</span> <span class="p">(</span><span class="n">epochs</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># use current weights in NN to determine outputs</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span><span class="n">weights</span><span class="p">))</span>
+        <span class="c1"># find the loss</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">output</span><span class="o">-</span><span class="n">y_i</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># </span>
+        <span class="k">if</span> <span class="n">last_loss</span> <span class="ow">and</span> <span class="n">last_loss</span> <span class="o">&lt;</span> <span class="n">loss</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s1">, WARNING - Loss is inscreasing&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Training loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">last_loss</span> <span class="o">=</span> <span class="n">loss</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training loss: 0.20879328109199216
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.24423433937166253, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.2535774687986323, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.25806549907726695, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.2612052379782168, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.2636314466602466, WARNING - Loss is inscreasing
+Train loss: 0.265540779202265, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.2670478508460244, WARNING - Loss is inscreasing
+Train loss: 0.2682382618486228, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss: 0.2691790525966896, WARNING - Loss is inscreasing
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="multilayer-nn">
+<h2><span class="section-number">1.3. </span>Multilayer NN<a class="headerlink" href="#multilayer-nn" title="Permalink to this headline">¶</a></h2>
+<p>Now, lets build upon our neural network, but this time, we have a hidden layer.</p>
+<p>Lets first see how to build the network to make predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">weights_input_to_hidden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">weights_hidden_to_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">weights_input_to_hidden</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">sum_input</span><span class="p">)</span>
+
+<span class="n">sum_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">weights_hidden_to_output</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">sum_h</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="backpropa-what">
+<h2><span class="section-number">1.4. </span>Backpropa what?<a class="headerlink" href="#backpropa-what" title="Permalink to this headline">¶</a></h2>
+<p>Ok, so now, how do we refine our weights? Well, this is where <strong>backpropagation</strong> comes in. After feeding our data forwards through the network, using feed forward, we propagate our errors backwards, making use of things such as the chain rule.</p>
+<p>Lets do an implementation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we have three input nodes</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">])</span>
+<span class="c1"># one output node</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+<span class="n">learnrate</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="c1"># 2 nodes in hidden layer</span>
+<span class="n">weights_input_hidden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">weights_hidden_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mf">0.1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># feeding data forwards through the network</span>
+<span class="n">hidden_layer_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weights_input_hidden</span><span class="p">)</span>
+<span class="n">hidden_layer_output</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">hidden_layer_input</span><span class="p">)</span>
+<span class="c1">#---</span>
+<span class="n">output_layer_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_layer_output</span><span class="p">,</span> <span class="n">weights_hidden_output</span><span class="p">)</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">output_layer_input</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># backward propagate the errors to tune the weights</span>
+
+<span class="c1"># 1. calculate errors</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span>
+<span class="n">output_node_error_term</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y_hat</span><span class="p">))</span>
+<span class="c1">#----</span>
+<span class="n">hidden_node_error_term</span> <span class="o">=</span> <span class="n">weights_hidden_output</span> <span class="o">*</span> <span class="n">output_node_error_term</span> <span class="o">*</span><span class="p">(</span><span class="n">hidden_layer_output</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">hidden_layer_output</span><span class="p">))</span>
+
+<span class="c1"># 2. calculate weight changes</span>
+<span class="n">delta_w_output_node</span> <span class="o">=</span> <span class="n">learnrate</span> <span class="o">*</span> <span class="n">output_node_error_term</span> <span class="o">*</span> <span class="n">hidden_layer_output</span>
+<span class="c1">#-----</span>
+<span class="n">delta_w_hidden_node</span> <span class="o">=</span> <span class="n">learnrate</span> <span class="o">*</span> <span class="n">hidden_node_error_term</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span><span class="kc">None</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Original weights:</span><span class="se">\n</span><span class="si">{</span><span class="n">weights_input_hidden</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">weights_hidden_output</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Change in weights for hidden layer to output layer:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta_w_output_node</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Change in weights for input layer to hidden layer:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta_w_hidden_node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original weights:
+[[ 0.5 -0.6]
+ [ 0.1 -0.2]
+ [ 0.1  0.7]]
+[ 0.1 -0.3]
+
+Change in weights for hidden layer to output layer:
+[0.01492263 0.00975438]
+Change in weights for input layer to hidden layer:
+[[ 0.00032851 -0.00092784]
+ [ 0.0001314  -0.00037114]
+ [-0.00019711  0.0005567 ]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="putting-it-all-together">
+<h2><span class="section-number">1.5. </span>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">complete_backprop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Complete implementation of backpropagation&#39;&#39;&#39;</span>
+    <span class="n">n_hidden_units</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="mi">900</span>
+    <span class="n">learnrate</span> <span class="o">=</span> <span class="mf">0.005</span>
+
+    <span class="n">n_records</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">last_loss</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">w_input_to_hidden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">n_features</span><span class="o">**.</span><span class="mi">5</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_hidden_units</span><span class="p">))</span>
+    <span class="n">w_hidden_to_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">n_features</span><span class="o">**.</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_hidden_units</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">single_epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">delw_input_to_hidden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">w_input_to_hidden</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">delw_hidden_to_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">w_hidden_to_output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+            <span class="c1"># ----------------------</span>
+            <span class="c1"># 1. Feed data forwards</span>
+            <span class="c1"># ----------------------</span>
+            
+            <span class="n">hidden_layer_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w_input_to_hidden</span><span class="p">)</span>
+            <span class="n">hidden_layer_output</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">hidden_layer_input</span><span class="p">)</span>
+
+            <span class="n">output_layer_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_layer_output</span><span class="p">,</span> <span class="n">w_hidden_to_output</span><span class="p">)</span>
+            <span class="n">output_layer_output</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">output_layer_input</span><span class="p">)</span>
+
+            <span class="c1"># ----------------------</span>
+            <span class="c1"># 2. Backpropagate the errors</span>
+            <span class="c1"># ----------------------</span>
+
+            <span class="c1"># error at output layer</span>
+            <span class="n">prediction_error</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">output_layer_output</span>
+            <span class="n">output_error_term</span> <span class="o">=</span> <span class="n">prediction_error</span> <span class="o">*</span> <span class="p">(</span><span class="n">output_layer_output</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">output_layer_output</span><span class="p">))</span>
+
+            <span class="c1"># error at hidden layer (propagated from output layer)</span>
+            <span class="c1"># scale error from output layer by weights</span>
+            <span class="n">hidden_layer_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">output_error_term</span><span class="p">,</span> <span class="n">w_hidden_to_output</span><span class="p">)</span>
+            <span class="n">hidden_error_term</span> <span class="o">=</span> <span class="n">hidden_layer_error</span> <span class="o">*</span> <span class="p">(</span><span class="n">hidden_layer_output</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">hidden_layer_output</span><span class="p">))</span>
+
+            <span class="c1"># ----------------------</span>
+            <span class="c1"># 3. Find change of weights for each data point</span>
+            <span class="c1"># ----------------------</span>
+
+            <span class="n">delw_hidden_to_output</span> <span class="o">+=</span> <span class="n">output_error_term</span> <span class="o">*</span> <span class="n">hidden_layer_output</span>
+            <span class="n">delw_input_to_hidden</span> <span class="o">+=</span> <span class="n">hidden_error_term</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span><span class="kc">None</span><span class="p">]</span>
+        
+        
+        <span class="c1"># Now update the actual weights</span>
+        <span class="n">w_hidden_to_output</span> <span class="o">+=</span> <span class="n">learnrate</span> <span class="o">*</span> <span class="n">delw_hidden_to_output</span> <span class="o">/</span> <span class="n">n_records</span>
+        <span class="n">w_input_to_hidden</span> <span class="o">+=</span> <span class="n">learnrate</span> <span class="o">*</span> <span class="n">delw_input_to_hidden</span> <span class="o">/</span> <span class="n">n_records</span>
+
+        <span class="c1"># Printing out the mean square error on the training set</span>
+        <span class="k">if</span> <span class="n">single_epoch</span> <span class="o">%</span> <span class="p">(</span><span class="n">epochs</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">hidden_output</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w_input_to_hidden</span><span class="p">))</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_output</span><span class="p">,</span>
+                                <span class="n">w_hidden_to_output</span><span class="p">))</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">out</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">last_loss</span> <span class="ow">and</span> <span class="n">last_loss</span> <span class="o">&lt;</span> <span class="n">loss</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train loss: &quot;</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;  WARNING - Loss Increasing&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train loss: &quot;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+            <span class="n">last_loss</span> <span class="o">=</span> <span class="n">loss</span>
+
+
+<span class="n">complete_backprop</span><span class="p">(</span><span class="n">features</span><span class="p">,</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2516119393037275
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2515507327943288
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2514911890398006
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2514332619591989
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.251376906713852
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.25132207967725206
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2512687384054615
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2512168416080365
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.2511663491194731
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train loss:  0.25111722187117796
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./4_dl_basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../3_mle_basics/basics_of_sklearn.html" title="previous page">&lt;no title&gt;</a>
+    <a class='right-next' id="next-link" href="rnns.html" title="next page"><span class="section-number">2. </span>RNN</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Abdi Timer<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

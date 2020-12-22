@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -55,7 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. Data - the different types" href="data_formats.html" />
+    <link rel="next" title="3. What is Markdown?" href="markdown.html" />
     <link rel="prev" title="1. Setup Background" href="setup_background.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -92,7 +94,7 @@
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to your Jupyter Book
+   Welcome to Abdis Machine Learning Handbook
   </a>
  </li>
 </ul>
@@ -125,8 +127,23 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="data_formats.html">
-   3. Data - the different types
+   4. Data - the different types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_stats.html">
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_linear_algebra.html">
+   6. Intro to Linear Algebra
   </a>
  </li>
 </ul>
@@ -144,6 +161,60 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
    2. Overview of Machine Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/basics_of_dl.html">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/sentiment_analysis.html">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html#examples">
+   3. Examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   4. PySpark refresher
   </a>
  </li>
 </ul>
@@ -220,10 +291,53 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/2_background/tools_background.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyter">
+   2.1. Jupyter
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jupyter-notebooks">
+     2.1.1. Jupyter Notebooks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ide-s-e-g-vscode">
+   2.2. IDE’s (e.g. VSCode)
+  </a>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -248,6 +362,35 @@
 </ul>
 </li>
 </ul>
+<div class="section" id="jupyter">
+<h2><span class="section-number">2.1. </span>Jupyter<a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jupyter-notebooks">
+<h3><span class="section-number">2.1.1. </span>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Combines both text and code in the form of literature programming, that has a story/narative with the code</p></li>
+<li><p>Advantages:</p>
+<ul>
+<li><p>see code execution in steps</p></li>
+<li><p>reproducible and shareable</p></li>
+<li><p>explain your code -&gt; great for documentation</p></li>
+</ul>
+</li>
+<li><p>You can also visualise maths, videos and images in your notebook</p></li>
+<li><p>Jupyter notebooks is made up of:</p>
+<ul>
+<li><p>End user in a browser : you - viewing the change in a browser</p></li>
+<li><p>Notebook Server : connects to browser using http &amp; websockets, notebook file and kernel</p></li>
+<li><p>kernel : runs the code and sends results back to server, which then renders outputs to browser</p></li>
+<li><p>the saved file (.ipynb) is saved as a json file</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ide-s-e-g-vscode">
+<h2><span class="section-number">2.2. </span>IDE’s (e.g. VSCode)<a class="headerlink" href="#ide-s-e-g-vscode" title="Permalink to this headline">¶</a></h2>
+<p>I use microsofts free and open source IDE called vscode. It is a great platform that has a lot of extensions for software engineers and data scientists. Additionally, it has great interactivity with git, allowing for easy git pull/push actions.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -262,13 +405,13 @@
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "python37164bitdatascienceenvvenvc7e335f45fcf4ed5bb97715a7b64d407",
             path: "./2_background"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'python37164bitdatascienceenvvenvc7e335f45fcf4ed5bb97715a7b64d407'</script>
 
               </div>
               
@@ -279,7 +422,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="setup_background.html" title="previous page"><span class="section-number">1. </span>Setup Background</a>
-    <a class='right-next' id="next-link" href="data_formats.html" title="next page"><span class="section-number">3. </span>Data - the different types</a>
+    <a class='right-next' id="next-link" href="markdown.html" title="next page"><span class="section-number">3. </span>What is Markdown?</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

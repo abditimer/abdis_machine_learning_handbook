@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Intro to Stats &#8212; abdis-machine-learning-handbook</title>
+    <title>5. Intro to Stats &#8212; abdis-machine-learning-handbook</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -46,6 +46,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -55,8 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. Basics of Machine Learning" href="../3_mle_basics/basics_of_ml.html" />
-    <link rel="prev" title="3. Data - the different types" href="data_formats.html" />
+    <link rel="next" title="6. Intro to Linear Algebra" href="intro_linear_algebra.html" />
+    <link rel="prev" title="4. Data - the different types" href="data_formats.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -92,7 +94,7 @@
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to your Jupyter Book
+   Welcome to Abdis Machine Learning Handbook
   </a>
  </li>
 </ul>
@@ -125,13 +127,23 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="markdown.html">
+   3. What is Markdown?
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="data_formats.html">
-   3. Data - the different types
+   4. Data - the different types
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. Intro to Stats
+   5. Intro to Stats
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_linear_algebra.html">
+   6. Intro to Linear Algebra
   </a>
  </li>
 </ul>
@@ -149,6 +161,60 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../3_mle_basics/overview_of_ml.html">
    2. Overview of Machine Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Basics of Deep Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/basics_of_dl.html">
+   1. Basics of Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_dl_basics/rnns.html">
+   2. RNN
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/sentiment_analysis.html">
+   3. Sentiment Analysis end-to-end example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4_1_dl_basics_implementations/diabetes_predictor.html">
+   4. Building a terrible diabetes predictor from scratch
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Software Engineering Basics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_classes_inheritence_more.html">
+   1. Python Classes, Inheritence etc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html">
+   2. Lambdas &amp; Decorators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5_software_engineering/python_lambdas_decorators.html#examples">
+   3. Examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6_pyspark/pyspark_intro.html">
+   4. PySpark refresher
   </a>
  </li>
 </ul>
@@ -238,7 +304,7 @@
               <div>
                 
   <div class="section" id="intro-to-stats">
-<h1><span class="section-number">4. </span>Intro to Stats<a class="headerlink" href="#intro-to-stats" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5. </span>Intro to Stats<a class="headerlink" href="#intro-to-stats" title="Permalink to this headline">¶</a></h1>
 <p>placeholder… add notes on stats.</p>
 </div>
 
@@ -270,8 +336,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="data_formats.html" title="previous page"><span class="section-number">3. </span>Data - the different types</a>
-    <a class='right-next' id="next-link" href="../3_mle_basics/basics_of_ml.html" title="next page"><span class="section-number">1. </span>Basics of Machine Learning</a>
+    <a class='left-prev' id="prev-link" href="data_formats.html" title="previous page"><span class="section-number">4. </span>Data - the different types</a>
+    <a class='right-next' id="next-link" href="intro_linear_algebra.html" title="next page"><span class="section-number">6. </span>Intro to Linear Algebra</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
