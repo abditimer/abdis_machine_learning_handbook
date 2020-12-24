@@ -24,7 +24,6 @@
     - file: 4_dl_basics/basics_of_dl
     - file: 4_dl_basics/rnns
     - file: 4_1_dl_basics_implementations/sentiment_analysis
-    - file: 4_1_dl_basics_implementations/diabetes_predictor
 - part: Software Engineering Basics
   chapters:
     - file: 5_software_engineering/python_classes_inheritence_more

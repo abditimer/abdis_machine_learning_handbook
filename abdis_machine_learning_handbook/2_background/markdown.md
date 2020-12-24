@@ -18,5 +18,8 @@ You can use markdown to write maths formulas. [This](https://csrgxtu.github.io/2
 
 Here is a quick summary:
 
-- superscript: $X^{2}$
-- subscript: $X_{i}$
+- superscript: $X^{2}$ - use `{<item>}^{<superscript goes here>}`
+- subscript: $X_{i}$ - use `{<item>}_{<subscript goes here>}`
+- sum: $\sum_{i=1}^{10}$ - use `\sum_{}^{}`
+- fraction: $\frac{1}{x}$ - `use \frac{<num>}{<denom>}`
+- Multiplication aka dot: $\cdot$ - `use \cdot command`
